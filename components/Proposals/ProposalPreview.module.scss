@@ -1,0 +1,459 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.proposal {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  @media print {
+    box-shadow: none;
+    max-width: 100%;
+  }
+}
+
+// Обложка
+.cover {
+  min-height: 400px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+
+  @media print {
+    page-break-after: always;
+  }
+}
+
+.coverContent {
+  max-width: 600px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+}
+
+.logoIcon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: #1a1a1a;
+  font-weight: 700;
+  font-size: 1.5rem;
+  border-radius: 8px;
+}
+
+.logoText {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.coverTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.coverSubtitle {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.coverNumber {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 0.5rem;
+}
+
+.coverDate {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+// Секции
+.section {
+  padding: 3rem 4rem;
+  border-bottom: 1px solid #e5e7eb;
+
+  @media print {
+    padding: 2rem;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.sectionTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
+  position: relative;
+  padding-bottom: 1rem;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: #1a1a1a;
+  }
+}
+
+// Информация о клиенте
+.clientInfo {
+  background: #f9fafb;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.infoRow {
+  display: flex;
+  padding: 0.75rem 0;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #e5e7eb;
+  }
+}
+
+.infoLabel {
+  min-width: 180px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.infoValue {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+// О нас
+.about {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.aboutText {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #374151;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+
+  @media print {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.feature {
+  display: flex;
+  gap: 1rem;
+}
+
+.featureIcon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.featureText {
+  flex: 1;
+}
+
+.featureTitle {
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.featureDesc {
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+// Кейсы
+.cases {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+
+  @media print {
+    grid-template-columns: 1fr;
+  }
+}
+
+.case {
+  padding: 2rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 2px solid #e5e7eb;
+}
+
+.caseTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+}
+
+.caseMetrics {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.metric {
+  flex: 1;
+}
+
+.metricValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 0.25rem;
+}
+
+.metricLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+  text-transform: uppercase;
+}
+
+.caseDesc {
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+// Описание
+.description {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: #374151;
+}
+
+// Услуги
+.services {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.service {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.serviceHeader {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.serviceNumber {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  color: white;
+  font-weight: 700;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.serviceInfo {
+  flex: 1;
+}
+
+.serviceName {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.serviceDesc {
+  font-size: 0.9375rem;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.serviceFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.9375rem;
+}
+
+.serviceQuantity {
+  color: #6b7280;
+}
+
+.servicePrice {
+  color: #6b7280;
+}
+
+.serviceTotal {
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: #1a1a1a;
+}
+
+// Цены
+.pricing {
+  background: #1a1a1a;
+  color: white;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.pricingRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  font-size: 1.125rem;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  &.total {
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding-top: 1.5rem;
+  }
+}
+
+.discount {
+  color: #fbbf24;
+}
+
+// Условия
+.terms {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #374151;
+
+  p {
+    margin-bottom: 0.75rem;
+  }
+}
+
+.validity {
+  margin-top: 1.5rem;
+  padding: 1rem 1.5rem;
+  background: #fef3c7;
+  border-left: 4px solid #f59e0b;
+  color: #92400e;
+  font-weight: 600;
+}
+
+// Контакты
+.contacts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+
+  @media print {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.contactItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contactLabel {
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.contactValue {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+// Примечания
+.notes {
+  padding: 2rem 4rem;
+  background: #f9fafb;
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.6;
+
+  @media print {
+    padding: 1rem 2rem;
+  }
+}
+
+// Футер
+.footer {
+  padding: 3rem 4rem;
+  background: #1a1a1a;
+  color: white;
+  text-align: center;
+
+  @media print {
+    padding: 2rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    line-height: 1.6;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Print styles
+@media print {
+  @page {
+    margin: 0;
+    size: A4;
+  }
+
+  .proposal {
+    background: white;
+  }
+}
