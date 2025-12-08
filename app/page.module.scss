@@ -1,175 +1,285 @@
 @import '../styles/variables';
 @import '../styles/mixins';
 
-.main {
+.layout {
   min-height: 100vh;
   background: $color-bg;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4rem 2rem;
-}
-
-.hero {
-  text-align: center;
-  margin-bottom: 5rem;
-  padding: 3rem 0;
-}
-
-.logoSection {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
+  padding-top: 64px;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 260px;
+
+  @include responsive('lg') {
+    margin-left: 0;
+  }
+}
+
+.header {
   margin-bottom: 2rem;
 }
 
-.logo {
-  font-size: 4rem;
-  font-weight: 900;
-  color: $color-text;
-  letter-spacing: -2px;
-  
-  @include responsive('md') {
-    font-size: 3rem;
-  }
-}
-
-.logoBadge {
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: $color-text-secondary;
-  padding: 0.5rem 1.25rem;
-  border: 1px solid $color-border;
-  border-radius: 2px;
-}
-
 .title {
-  font-size: 2.5rem;
+  font-size: 1.875rem;
   font-weight: 700;
-  line-height: 1.2;
   color: $color-text;
-  margin-bottom: 1.5rem;
-  
-  @include responsive('md') {
-    font-size: 2rem;
-  }
-  
-  @include responsive('sm') {
-    font-size: 1.75rem;
-  }
+  margin-bottom: 0.25rem;
 }
 
-.description {
-  font-size: 1.125rem;
-  line-height: 1.75;
+.subtitle {
+  font-size: 0.9375rem;
   color: $color-text-secondary;
-  margin-bottom: 2.5rem;
-  
-  @include responsive('md') {
-    font-size: 1rem;
-  }
 }
 
-.actions {
-  @include flex-center;
-  gap: 1rem;
-}
-
-.buttonPrimary {
-  display: inline-flex;
-  align-items: center;
-  padding: 1.25rem 3rem;
-  background: $color-text;
-  color: white;
-  font-weight: 600;
-  font-size: 1rem;
-  border-radius: 2px;
-  transition: all $transition-base;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  
-  &:hover {
-    background: lighten($color-text, 10%);
-    transform: translateY(-2px);
-    box-shadow: $shadow-lg;
-  }
-}
-
-.divider {
-  height: 1px;
-  background: $color-border;
-  margin: 4rem 0;
-}
-
-.modules {
-  margin-bottom: 5rem;
-}
-
-.modulesTitle {
-  font-size: 2rem;
-  font-weight: 700;
+.loading {
   text-align: center;
-  margin-bottom: 3rem;
-  color: $color-text;
+  padding: 3rem;
+  color: $color-text-secondary;
+  font-size: 0.9375rem;
 }
 
-.moduleGrid {
+.metrics {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+
   @include responsive('lg') {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   @include responsive('sm') {
     grid-template-columns: 1fr;
   }
 }
 
-.module {
-  padding: 2rem;
+.alert {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba($color-danger, 0.05);
+  border: 1px solid rgba($color-danger, 0.3);
+  border-radius: $border-radius-sm;
+  margin-bottom: 2rem;
+}
+
+.alertIcon {
+  font-size: 1.5rem;
+}
+
+.alertTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $color-text;
+  margin-bottom: 0.25rem;
+}
+
+.alertText {
+  font-size: 0.875rem;
+  color: $color-text-secondary;
+
+  a {
+    color: $color-danger;
+    font-weight: 600;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: darken($color-danger, 10%);
+    }
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+
+  @include responsive('lg') {
+    grid-template-columns: 1fr;
+  }
+}
+
+.section {
   background: $color-bg-card;
   border: 1px solid $color-border;
-  transition: all $transition-base;
-  
+  border-radius: $border-radius-sm;
+  padding: 1.5rem;
+}
+
+.sectionHeader {
+  @include flex-between;
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $color-text;
+}
+
+.sectionLink {
+  font-size: 0.875rem;
+  color: $color-text-secondary;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-text;
+  }
+}
+
+.empty {
+  text-align: center;
+  padding: 2rem;
+  color: $color-text-muted;
+  font-size: 0.875rem;
+}
+
+.tasksList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.taskItem {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: $color-bg;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-sm;
+  transition: all $transition-fast;
+
   &:hover {
     border-color: $color-text;
-    transform: translateY(-4px);
-    box-shadow: $shadow-md;
-  }
-  
-  h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: $color-text;
-    margin-bottom: 0.75rem;
-  }
-  
-  p {
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: $color-text-secondary;
   }
 }
 
-.moduleIcon {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+.taskPriority {
+  width: 4px;
+  border-radius: 2px;
+  flex-shrink: 0;
+
+  &.low {
+    background: $color-text-muted;
+  }
+
+  &.medium {
+    background: $color-primary;
+  }
+
+  &.high {
+    background: $color-warning;
+  }
+
+  &.critical {
+    background: $color-danger;
+  }
 }
 
-.footer {
-  text-align: center;
-  padding: 2rem 0;
-  border-top: 1px solid $color-border;
-  
-  p {
-    font-size: 0.875rem;
+.taskContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.taskTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: $color-text;
+  margin-bottom: 0.25rem;
+}
+
+.taskMeta {
+  font-size: 0.75rem;
+  color: $color-text-muted;
+}
+
+.taskStatus {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 2px;
+  white-space: nowrap;
+
+  &.new {
+    background: rgba($color-primary, 0.1);
+    color: $color-primary;
+  }
+
+  &.in_progress {
+    background: rgba($color-warning, 0.1);
+    color: $color-warning;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: $color-bg;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-sm;
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: $color-text;
+  }
+}
+
+.listTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: $color-text;
+  margin-bottom: 0.25rem;
+}
+
+.listMeta {
+  font-size: 0.75rem;
+  color: $color-text-muted;
+}
+
+.listStatus {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 2px;
+  white-space: nowrap;
+
+  &.lead {
+    background: rgba($color-warning, 0.1);
+    color: $color-warning;
+  }
+
+  &.active {
+    background: rgba($color-success, 0.1);
+    color: $color-success;
+  }
+
+  &.archive {
+    background: #f3f4f6;
     color: $color-text-muted;
+  }
+
+  &.completed {
+    background: #f3f4f6;
+    color: $color-text-muted;
+  }
+
+  &.paused {
+    background: rgba($color-warning, 0.1);
+    color: $color-warning;
   }
 }
