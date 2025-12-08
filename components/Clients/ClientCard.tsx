@@ -18,6 +18,20 @@ const projectStatusLabels: Record<string, string> = {
 }
 
 export default function ClientCard({ client }: ClientCardProps) {
+  // Функция для открытия Telegram
+  const openTelegram = (username: string) => {
+    // Если начинается с @, убираем его
+    const cleanUsername = username.startsWith('@') ? username.slice(1) : username
+    window.open(`https://t.me/${cleanUsername}`, '_blank')
+  }
+
+  // Функция для открытия WhatsApp
+  const openWhatsApp = (phone: string) => {
+    // Убираем все символы кроме цифр и +
+    const cleanPhone = phone.replace(/[^0-9+]/g, '')
+    window.open(`https://wa.me/${cleanPhone}`, '_blank')
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -30,6 +44,36 @@ export default function ClientCard({ client }: ClientCardProps) {
         <div className={styles.actions}>
           <button className={styles.editButton}>Редактировать</button>
         </div>
+      </div>
+
+      {/* Быстрые кнопки связи */}
+      <div className={styles.messengers}>
+        {client.telegram && (
+          <button
+            className={`${styles.messengerButton} ${styles.telegram}`}
+            onClick={() => openTelegram(client.telegram!)}
+          >
+            📱 Telegram
+          </button>
+        )}
+        {client.whatsapp && (
+          <button
+            className={`${styles.messengerButton} ${styles.whatsapp}`}
+            onClick={() => openWhatsApp(client.whatsapp!)}
+          >
+            💬 WhatsApp
+          </button>
+        )}
+        {client.email && (
+          <a href={`mailto:${client.email}`} className={`${styles.messengerButton} ${styles.email}`}>
+            ✉️ Email
+          </a>
+        )}
+        {client.phone && (
+          <a href={`tel:${client.phone}`} className={`${styles.messengerButton} ${styles.phone}`}>
+            📞 Позвонить
+          </a>
+        )}
       </div>
 
       <div className={styles.grid}>
@@ -73,7 +117,23 @@ export default function ClientCard({ client }: ClientCardProps) {
                   <div className={styles.contactPosition}>{contact.position || '—'}</div>
                   <div className={styles.contactDetails}>
                     <a href={`tel:${contact.phone}`}>{contact.phone}</a>
-                    <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                    {contact.email && <a href={`mailto:${contact.email}`}>{contact.email}</a>}
+                    {contact.telegram && (
+                      <button
+                        onClick={() => openTelegram(contact.telegram!)}
+                        className={styles.contactMessenger}
+                      >
+                        Telegram: {contact.telegram}
+                      </button>
+                    )}
+                    {contact.whatsapp && (
+                      <button
+                        onClick={() => openWhatsApp(contact.whatsapp!)}
+                        className={styles.contactMessenger}
+                      >
+                        WhatsApp: {contact.whatsapp}
+                      </button>
+                    )}
                   </div>
                 </div>
               ))

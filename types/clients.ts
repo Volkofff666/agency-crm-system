@@ -2,8 +2,10 @@ export interface Client {
   id: string | number
   name: string
   contact_person: string
-  email: string
+  email?: string
   phone: string
+  telegram?: string
+  whatsapp?: string
   status: 'lead' | 'active' | 'archive'
   projectsCount?: number
   last_contact: string
@@ -35,6 +37,8 @@ export interface Contact {
   name: string
   position?: string
   phone: string
-  email: string
+  email?: string
+  telegram?: string
+  whatsapp?: string
   created_at?: string
 }

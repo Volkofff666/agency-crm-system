@@ -7,7 +7,9 @@ class ContactBase(BaseModel):
     name: str
     position: Optional[str] = None
     phone: str
-    email: EmailStr
+    email: Optional[EmailStr] = None
+    telegram: Optional[str] = None
+    whatsapp: Optional[str] = None
 
 class ContactCreate(ContactBase):
     pass
@@ -42,8 +44,10 @@ class Project(ProjectBase):
 class ClientBase(BaseModel):
     name: str
     contact_person: str
-    email: EmailStr
+    email: Optional[EmailStr] = None
     phone: str
+    telegram: Optional[str] = None
+    whatsapp: Optional[str] = None
     status: str = "lead"
     inn: Optional[str] = None
     address: Optional[str] = None
@@ -58,6 +62,8 @@ class ClientUpdate(BaseModel):
     contact_person: Optional[str] = None
     email: Optional[EmailStr] = None
     phone: Optional[str] = None
+    telegram: Optional[str] = None
+    whatsapp: Optional[str] = None
     status: Optional[str] = None
     inn: Optional[str] = None
     address: Optional[str] = None

@@ -19,6 +19,8 @@ export default function ClientModal({ isOpen, onClose, onSuccess }: ClientModalP
     contact_person: '',
     email: '',
     phone: '',
+    telegram: '',
+    whatsapp: '',
     status: 'lead',
     inn: '',
     address: '',
@@ -41,6 +43,8 @@ export default function ClientModal({ isOpen, onClose, onSuccess }: ClientModalP
         contact_person: '',
         email: '',
         phone: '',
+        telegram: '',
+        whatsapp: '',
         status: 'lead',
         inn: '',
         address: '',
@@ -99,36 +103,19 @@ export default function ClientModal({ isOpen, onClose, onSuccess }: ClientModalP
             />
           </div>
 
-          <div className={styles.row}>
-            <div className={styles.field}>
-              <label className={styles.label}>
-                Email <span className={styles.required}>*</span>
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className={styles.input}
-                required
-                placeholder="email@example.com"
-              />
-            </div>
-
-            <div className={styles.field}>
-              <label className={styles.label}>
-                Телефон <span className={styles.required}>*</span>
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className={styles.input}
-                required
-                placeholder="+7 (999) 123-45-67"
-              />
-            </div>
+          <div className={styles.field}>
+            <label className={styles.label}>
+              Телефон <span className={styles.required}>*</span>
+            </label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className={styles.input}
+              required
+              placeholder="+7 (999) 123-45-67"
+            />
           </div>
 
           <div className={styles.field}>
@@ -143,6 +130,48 @@ export default function ClientModal({ isOpen, onClose, onSuccess }: ClientModalP
               <option value="active">Активный</option>
               <option value="archive">Архив</option>
             </select>
+          </div>
+        </div>
+
+        <div className={styles.section}>
+          <h3 className={styles.sectionTitle}>Контакты для связи</h3>
+
+          <div className={styles.field}>
+            <label className={styles.label}>Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className={styles.input}
+              placeholder="email@example.com"
+            />
+          </div>
+
+          <div className={styles.row}>
+            <div className={styles.field}>
+              <label className={styles.label}>Telegram</label>
+              <input
+                type="text"
+                name="telegram"
+                value={formData.telegram}
+                onChange={handleChange}
+                className={styles.input}
+                placeholder="@username или ID"
+              />
+            </div>
+
+            <div className={styles.field}>
+              <label className={styles.label}>WhatsApp</label>
+              <input
+                type="tel"
+                name="whatsapp"
+                value={formData.whatsapp}
+                onChange={handleChange}
+                className={styles.input}
+                placeholder="+7 (999) 123-45-67"
+              />
+            </div>
           </div>
         </div>
 

@@ -9,8 +9,10 @@ class Client(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False, index=True)
     contact_person = Column(String, nullable=False)
-    email = Column(String, nullable=False)
+    email = Column(String, nullable=True)  # Email теперь необязателен
     phone = Column(String, nullable=False)
+    telegram = Column(String, nullable=True)  # Username в Telegram (@username или ID)
+    whatsapp = Column(String, nullable=True)  # Номер WhatsApp
     status = Column(String, default="lead")  # lead, active, archive
     inn = Column(String, nullable=True)
     address = Column(String, nullable=True)
@@ -32,7 +34,9 @@ class Contact(Base):
     name = Column(String, nullable=False)
     position = Column(String, nullable=True)
     phone = Column(String, nullable=False)
-    email = Column(String, nullable=False)
+    email = Column(String, nullable=True)
+    telegram = Column(String, nullable=True)
+    whatsapp = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     # Relationships
