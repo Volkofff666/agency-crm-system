@@ -1,0 +1,129 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  background: $color-bg-card;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-sm;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    background: $color-bg;
+    border-bottom: 1px solid $color-border;
+
+    th {
+      text-align: left;
+      padding: 1rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: $color-text-secondary;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid $color-border;
+      transition: background $transition-fast;
+
+      &:hover {
+        background: $color-bg-hover;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      padding: 1rem;
+      font-size: 0.9375rem;
+      color: $color-text;
+    }
+  }
+}
+
+.projectName {
+  font-weight: 600;
+  color: $color-text;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: lighten($color-text, 20%);
+  }
+}
+
+.clientLink {
+  color: $color-text-secondary;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-text;
+  }
+}
+
+.statusSelect {
+  padding: 0.375rem 0.75rem;
+  border: 1px solid $color-border;
+  border-radius: 2px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $color-text;
+  }
+
+  &.active {
+    background: rgba($color-success, 0.1);
+    color: $color-success;
+    border-color: rgba($color-success, 0.3);
+  }
+
+  &.completed {
+    background: #f3f4f6;
+    color: $color-text-muted;
+    border-color: #e5e7eb;
+  }
+
+  &.paused {
+    background: rgba($color-warning, 0.1);
+    color: $color-warning;
+    border-color: rgba($color-warning, 0.3);
+  }
+}
+
+.date {
+  color: $color-text-secondary;
+  font-size: 0.875rem;
+}
+
+.viewButton {
+  @include button-base;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  background: transparent;
+  border: 1px solid $color-border;
+  color: $color-text;
+
+  &:hover {
+    background: $color-bg-hover;
+    border-color: $color-text;
+  }
+}
+
+.empty {
+  text-align: center;
+  padding: 3rem;
+  color: $color-text-secondary;
+}
