@@ -4,7 +4,7 @@ from datetime import datetime
 
 # Импорт из переименованного файла
 from app.base_models import Client, Contact
-from app import schemas
+from app import base_schemas as schemas
 
 # Client CRUD
 def get_client(
