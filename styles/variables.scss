@@ -8,6 +8,13 @@ $color-success-hover: #15803d;
 $color-warning: #f59e0b;
 $color-warning-hover: #d97706;
 
+// Aliases for compatibility
+$primary-color: $color-primary;
+$text-primary: $color-text;
+$text-secondary: $color-text-secondary;
+$border-color: $color-border;
+$gray-50: $color-bg;
+
 // Text
 $color-text: #000000;
 $color-text-secondary: #6b7280;
