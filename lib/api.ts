@@ -137,3 +137,46 @@ export async function deleteProject(id: string) {
     method: 'DELETE',
   })
 }
+
+// Tasks API
+export async function getTasks(params?: {
+  status?: string
+  priority?: string
+  assignee?: string
+  skip?: number
+  limit?: number
+}) {
+  const queryParams = new URLSearchParams()
+  if (params?.status) queryParams.append('status', params.status)
+  if (params?.priority) queryParams.append('priority', params.priority)
+  if (params?.assignee) queryParams.append('assignee', params.assignee)
+  if (params?.skip) queryParams.append('skip', params.skip.toString())
+  if (params?.limit) queryParams.append('limit', params.limit.toString())
+
+  const query = queryParams.toString()
+  return fetchAPI(`/api/tasks${query ? `?${query}` : ''}`)
+}
+
+export async function getTask(id: string) {
+  return fetchAPI(`/api/tasks/${id}`)
+}
+
+export async function createTask(data: any) {
+  return fetchAPI('/api/tasks', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  })
+}
+
+export async function updateTask(id: string, data: any) {
+  return fetchAPI(`/api/tasks/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  })
+}
+
+export async function deleteTask(id: string) {
+  return fetchAPI(`/api/tasks/${id}`, {
+    method: 'DELETE',
+  })
+}
