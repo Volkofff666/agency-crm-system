@@ -1,9 +1,11 @@
+import Link from 'next/link'
 import type { ClientDetail } from '@/types/clients'
 import styles from './ClientCard.module.scss'
 
 interface ClientCardProps {
   client: ClientDetail
   onEdit: () => void
+  onAddProject?: () => void
 }
 
 const statusLabels: Record<string, string> = {
@@ -18,7 +20,7 @@ const projectStatusLabels: Record<string, string> = {
   paused: 'Приостановлен',
 }
 
-export default function ClientCard({ client, onEdit }: ClientCardProps) {
+export default function ClientCard({ client, onEdit, onAddProject }: ClientCardProps) {
   // Функция для открытия Telegram
   const openTelegram = (username: string) => {
     const cleanUsername = username.startsWith('@') ? username.slice(1) : username
@@ -144,13 +146,22 @@ export default function ClientCard({ client, onEdit }: ClientCardProps) {
       </div>
 
       <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>Проекты</h2>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Проекты</h2>
+          {onAddProject && (
+            <button className={styles.addButton} onClick={onAddProject}>
+              + Добавить проект
+            </button>
+          )}
+        </div>
         <div className={styles.projects}>
           {client.projects && client.projects.length > 0 ? (
             client.projects.map((project) => (
               <div key={project.id} className={styles.project}>
                 <div className={styles.projectHeader}>
-                  <div className={styles.projectName}>{project.name}</div>
+                  <Link href={`/projects/${project.id}`} className={styles.projectName}>
+                    {project.name}
+                  </Link>
                   <span className={`${styles.projectStatus} ${styles[project.status]}`}>
                     {projectStatusLabels[project.status]}
                   </span>

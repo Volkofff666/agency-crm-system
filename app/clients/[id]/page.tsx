@@ -6,6 +6,7 @@ import Header from '@/components/Layout/Header'
 import Sidebar from '@/components/Layout/Sidebar'
 import ClientCard from '@/components/Clients/ClientCard'
 import ClientModal from '@/components/Clients/ClientModal'
+import ProjectModal from '@/components/Projects/ProjectModal'
 import { getClient } from '@/lib/api'
 import type { ClientDetail } from '@/types/clients'
 import styles from './page.module.scss'
@@ -16,6 +17,7 @@ export default function ClientDetailPage({ params }: { params: Promise<{ id: str
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false)
 
   useEffect(() => {
     loadClient()
@@ -35,6 +37,10 @@ export default function ClientDetailPage({ params }: { params: Promise<{ id: str
   }
 
   const handleEditSuccess = () => {
+    loadClient()
+  }
+
+  const handleProjectSuccess = () => {
     loadClient()
   }
 
@@ -83,7 +89,11 @@ export default function ClientDetailPage({ params }: { params: Promise<{ id: str
             <span>{client.name}</span>
           </div>
 
-          <ClientCard client={client} onEdit={() => setIsEditModalOpen(true)} />
+          <ClientCard 
+            client={client} 
+            onEdit={() => setIsEditModalOpen(true)}
+            onAddProject={() => setIsProjectModalOpen(true)}
+          />
         </main>
       </div>
 
@@ -92,6 +102,14 @@ export default function ClientDetailPage({ params }: { params: Promise<{ id: str
         onClose={() => setIsEditModalOpen(false)}
         onSuccess={handleEditSuccess}
         client={client}
+      />
+
+      <ProjectModal
+        isOpen={isProjectModalOpen}
+        onClose={() => setIsProjectModalOpen(false)}
+        onSuccess={handleProjectSuccess}
+        clientId={client.id}
+        clientName={client.name}
       />
     </div>
   )

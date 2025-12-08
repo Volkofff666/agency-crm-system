@@ -134,11 +134,27 @@
   padding: 2rem;
 }
 
+.sectionHeader {
+  @include flex-between;
+  margin-bottom: 1.5rem;
+}
+
 .sectionTitle {
   font-size: 1.125rem;
   font-weight: 600;
   color: $color-text;
-  margin-bottom: 1.5rem;
+}
+
+.addButton {
+  @include button-base;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  background: $color-text;
+  color: white;
+
+  &:hover {
+    background: lighten($color-text, 10%);
+  }
 }
 
 .infoGrid {
@@ -250,6 +266,11 @@
   background: $color-bg;
   border: 1px solid $color-border;
   border-radius: $border-radius-sm;
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: $color-text;
+  }
 }
 
 .projectHeader {
@@ -261,6 +282,11 @@
   font-size: 1rem;
   font-weight: 600;
   color: $color-text;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: lighten($color-text, 20%);
+  }
 }
 
 .projectStatus {
