@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text, Float
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text, Float, Date
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from app.database import Base
@@ -25,6 +25,7 @@ class Client(Base):
     # Relationships
     contacts = relationship("Contact", back_populates="client", cascade="all, delete-orphan")
     projects = relationship("Project", back_populates="client", cascade="all, delete-orphan")
+    tasks = relationship("Task", back_populates="client", cascade="all, delete-orphan")
 
 class Contact(Base):
     __tablename__ = "contacts"
@@ -51,13 +52,43 @@ class Project(Base):
     status = Column(String, default="active")  # active, completed, paused
     
     # Финансы
-    our_budget = Column(Float, nullable=True)  # Сколько клиент платит нам в месяц
-    ad_budget = Column(Float, nullable=True)   # Рекламный бюджет клиента в месяц
-    budget_currency = Column(String, default="RUB")  # Валюта
+    our_budget = Column(Float, nullable=True)
+    ad_budget = Column(Float, nullable=True)
+    budget_currency = Column(String, default="RUB")
     
-    description = Column(Text, nullable=True)  # Описание проекта
+    description = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     # Relationships
     client = relationship("Client", back_populates="projects")
+    tasks = relationship("Task", back_populates="project", cascade="all, delete-orphan")
+
+class Task(Base):
+    __tablename__ = "tasks"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, nullable=False)
+    description = Column(Text, nullable=True)
+    
+    # Связи
+    project_id = Column(Integer, ForeignKey("projects.id"), nullable=True)
+    client_id = Column(Integer, ForeignKey("clients.id"), nullable=True)
+    
+    # Статус и приоритет
+    status = Column(String, default="new")  # new, in_progress, completed, cancelled
+    priority = Column(String, default="medium")  # low, medium, high, critical
+    
+    # Даты
+    due_date = Column(Date, nullable=True)  # Дедлайн
+    completed_at = Column(DateTime, nullable=True)
+    
+    # Ответственный (пока просто строка с именем)
+    assignee = Column(String, nullable=True)
+    
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    project = relationship("Project", back_populates="tasks")
+    client = relationship("Client", back_populates="tasks")
