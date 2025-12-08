@@ -1,0 +1,61 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: $color-bg-card;
+  border-bottom: 1px solid $color-border;
+  z-index: 100;
+}
+
+.container {
+  @include flex-between;
+  height: 100%;
+  padding: 0 2rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logoText {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: $color-text;
+  letter-spacing: -1px;
+}
+
+.logoBadge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: $color-text-secondary;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid $color-border;
+  border-radius: 2px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.userName {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $color-text-secondary;
+}

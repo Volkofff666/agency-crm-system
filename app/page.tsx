@@ -6,49 +6,64 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.container}>
         <div className={styles.hero}>
-          <div className={styles.badge}>CRM System</div>
+          <div className={styles.logoSection}>
+            <div className={styles.logo}>NOCTO</div>
+            <div className={styles.logoBadge}>Corporate CRM</div>
+          </div>
           <h1 className={styles.title}>
-            Управление клиентами<br />и проектами агентства
+            Корпоративная система<br />управления бизнесом
           </h1>
           <p className={styles.description}>
-            Профессиональная CRM система для комплексного управления<br />
-            клиентскими отношениями, проектами и финансами
+            Единая платформа для управления клиентами, проектами и финансами<br />
+            рекламного агентства NOCTO
           </p>
           <div className={styles.actions}>
             <Link href="/dashboard" className={styles.buttonPrimary}>
-              Перейти в систему
+              Войти в систему
             </Link>
           </div>
         </div>
 
-        <div className={styles.stats}>
-          <div className={styles.statItem}>
-            <div className={styles.statValue}>Все-в-одном</div>
-            <div className={styles.statLabel}>Клиенты, проекты, финансы</div>
-          </div>
-          <div className={styles.statItem}>
-            <div className={styles.statValue}>Автоматизация</div>
-            <div className={styles.statLabel}>Процессов и отчетности</div>
-          </div>
-          <div className={styles.statItem}>
-            <div className={styles.statValue}>Контроль</div>
-            <div className={styles.statLabel}>Полная прозрачность</div>
+        <div className={styles.divider}></div>
+
+        <div className={styles.modules}>
+          <h2 className={styles.modulesTitle}>Основные модули системы</h2>
+          <div className={styles.moduleGrid}>
+            <div className={styles.module}>
+              <div className={styles.moduleIcon}>👥</div>
+              <h3>Клиенты</h3>
+              <p>База клиентов с полной историей взаимодействия, контактами и документами</p>
+            </div>
+            <div className={styles.module}>
+              <div className={styles.moduleIcon}>📊</div>
+              <h3>Проекты</h3>
+              <p>Управление проектами, задачами, сроками и распределение ресурсов</p>
+            </div>
+            <div className={styles.module}>
+              <div className={styles.moduleIcon}>💰</div>
+              <h3>Финансы</h3>
+              <p>Счета, платежи, договора, акты и автоматическая финансовая отчетность</p>
+            </div>
+            <div className={styles.module}>
+              <div className={styles.moduleIcon}>📈</div>
+              <h3>Аналитика</h3>
+              <p>Детальные отчеты по эффективности работы и ключевым показателям</p>
+            </div>
+            <div className={styles.module}>
+              <div className={styles.moduleIcon}>👨‍💼</div>
+              <h3>Сотрудники</h3>
+              <p>Учет команды, роли, доступы и мониторинг загрузки специалистов</p>
+            </div>
+            <div className={styles.module}>
+              <div className={styles.moduleIcon}>📄</div>
+              <h3>Документы</h3>
+              <p>Централизованное хранилище всех документов и шаблонов компании</p>
+            </div>
           </div>
         </div>
 
-        <div className={styles.features}>
-          <div className={styles.feature}>
-            <h3>Клиенты и контакты</h3>
-            <p>Централизованная база клиентов с полной историей взаимодействия, контактными данными и документами.</p>
-          </div>
-          <div className={styles.feature}>
-            <h3>Проекты и задачи</h3>
-            <p>Управление проектами с постановкой задач, отслеживанием статусов и контролем сроков выполнения.</p>
-          </div>
-          <div className={styles.feature}>
-            <h3>Финансовый учет</h3>
-            <p>Полный контроль финансовых потоков: счета, платежи, договора, акты и автоматическая отчетность.</p>
-          </div>
+        <div className={styles.footer}>
+          <p>© 2025 NOCTO Agency. Все права защищены.</p>
         </div>
       </div>
     </main>

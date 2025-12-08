@@ -1,0 +1,45 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.sidebar {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 260px;
+  height: calc(100vh - 64px);
+  background: $color-bg-card;
+  border-right: 1px solid $color-border;
+  padding: 1.5rem 0;
+  
+  @include responsive('lg') {
+    display: none;
+  }
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  color: $color-text-secondary;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: all $transition-fast;
+  border-left: 3px solid transparent;
+  
+  &:hover {
+    background: $color-bg-hover;
+    color: $color-text;
+  }
+  
+  &.active {
+    background: $color-bg-hover;
+    color: $color-text;
+    border-left-color: $color-text;
+    font-weight: 600;
+  }
+}
