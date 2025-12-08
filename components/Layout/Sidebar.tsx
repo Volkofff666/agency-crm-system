@@ -14,6 +14,7 @@ export default function Sidebar() {
     { href: '/tasks', label: 'Задачи' },
     { href: '/calendar', label: 'Календарь' },
     { href: '/proposals', label: 'Комм. предложения' },
+    { href: '/invoices', label: 'Счета' },
     { href: '/finance', label: 'Финансы' },
     { href: '/analytics', label: 'Аналитика' },
   ]
