@@ -25,9 +25,6 @@ export default function ProposalPreview({ proposal }: ProposalPreviewProps) {
           </div>
           <h1 className={styles.coverTitle}>{proposal.title}</h1>
           <p className={styles.coverSubtitle}>Коммерческое предложение</p>
-          {proposal.number && (
-            <div className={styles.coverNumber}>№ {proposal.number}</div>
-          )}
           <div className={styles.coverDate}>{formatDate(proposal.created_at)}</div>
         </div>
       </div>
@@ -69,28 +66,24 @@ export default function ProposalPreview({ proposal }: ProposalPreviewProps) {
           </p>
           <div className={styles.features}>
             <div className={styles.feature}>
-              <div className={styles.featureIcon}>📊</div>
               <div className={styles.featureText}>
                 <div className={styles.featureTitle}>Контекстная реклама</div>
                 <div className={styles.featureDesc}>Яндекс.Директ, Google Ads с максимальной конверсией</div>
               </div>
             </div>
             <div className={styles.feature}>
-              <div className={styles.featureIcon}>🎯</div>
               <div className={styles.featureText}>
                 <div className={styles.featureTitle}>SEO-продвижение</div>
                 <div className={styles.featureDesc}>Вывод сайта в топ поисковых систем</div>
               </div>
             </div>
             <div className={styles.feature}>
-              <div className={styles.featureIcon}>💻</div>
               <div className={styles.featureText}>
                 <div className={styles.featureTitle}>Веб-разработка</div>
                 <div className={styles.featureDesc}>Создание сайтов, лендингов, корпоративных порталов</div>
               </div>
             </div>
             <div className={styles.feature}>
-              <div className={styles.featureIcon}>📱</div>
               <div className={styles.featureText}>
                 <div className={styles.featureTitle}>SMM и таргетированная реклама</div>
                 <div className={styles.featureDesc}>Продвижение в социальных сетях</div>
@@ -220,7 +213,7 @@ export default function ProposalPreview({ proposal }: ProposalPreviewProps) {
         </div>
         {proposal.valid_until && (
           <div className={styles.validity}>
-            Предложение действительно до {formatDate(proposal.valid_until)}
+            Предложение действительно до {proposal.valid_until}
           </div>
         )}
       </div>

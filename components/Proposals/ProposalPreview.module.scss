@@ -10,6 +10,8 @@
   @media print {
     box-shadow: none;
     max-width: 100%;
+    margin: 0;
+    padding: 0;
   }
 }
 
@@ -23,8 +25,10 @@
   justify-content: center;
   padding: 4rem 2rem;
   text-align: center;
+  page-break-after: always;
 
   @media print {
+    min-height: 100vh;
     page-break-after: always;
   }
 }
@@ -65,6 +69,10 @@
   font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.2;
+
+  @media print {
+    font-size: 2rem;
+  }
 }
 
 .coverSubtitle {
@@ -73,17 +81,16 @@
   margin-bottom: 2rem;
   text-transform: uppercase;
   letter-spacing: 2px;
-}
 
-.coverNumber {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 0.5rem;
+  @media print {
+    font-size: 1rem;
+  }
 }
 
 .coverDate {
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.6);
+  margin-top: 2rem;
 }
 
 // Секции
@@ -92,7 +99,9 @@
   border-bottom: 1px solid #e5e7eb;
 
   @media print {
-    padding: 2rem;
+    padding: 1.5rem 1rem;
+    border-bottom: none;
+    page-break-inside: avoid;
   }
 
   &:last-child {
@@ -108,6 +117,12 @@
   position: relative;
   padding-bottom: 1rem;
 
+  @media print {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+  }
+
   &::after {
     content: '';
     position: absolute;
@@ -116,6 +131,10 @@
     width: 60px;
     height: 3px;
     background: #1a1a1a;
+
+    @media print {
+      height: 2px;
+    }
   }
 }
 
@@ -124,6 +143,11 @@
   background: #f9fafb;
   padding: 2rem;
   border-radius: 8px;
+
+  @media print {
+    background: white;
+    padding: 1rem;
+  }
 }
 
 .infoRow {
@@ -139,11 +163,20 @@
   min-width: 180px;
   color: #6b7280;
   font-weight: 500;
+
+  @media print {
+    min-width: 120px;
+    font-size: 0.85rem;
+  }
 }
 
 .infoValue {
   color: #1a1a1a;
   font-weight: 600;
+
+  @media print {
+    font-size: 0.85rem;
+  }
 }
 
 // О нас
@@ -151,18 +184,27 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
+  @media print {
+    gap: 1rem;
+  }
 }
 
 .aboutText {
   font-size: 1.125rem;
   line-height: 1.8;
   color: #374151;
+
+  @media print {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
 }
 
 .features {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 1.5rem;
 
   @media print {
     grid-template-columns: 1fr;
@@ -175,11 +217,6 @@
   gap: 1rem;
 }
 
-.featureIcon {
-  font-size: 2rem;
-  flex-shrink: 0;
-}
-
 .featureText {
   flex: 1;
 }
@@ -188,12 +225,20 @@
   font-weight: 600;
   color: #1a1a1a;
   margin-bottom: 0.5rem;
+
+  @media print {
+    font-size: 0.95rem;
+  }
 }
 
 .featureDesc {
   font-size: 0.875rem;
   color: #6b7280;
   line-height: 1.6;
+
+  @media print {
+    font-size: 0.8rem;
+  }
 }
 
 // Кейсы
@@ -204,6 +249,7 @@
 
   @media print {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }
 
@@ -212,6 +258,12 @@
   background: #f9fafb;
   border-radius: 8px;
   border: 2px solid #e5e7eb;
+
+  @media print {
+    padding: 1rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+  }
 }
 
 .caseTitle {
@@ -219,12 +271,22 @@
   font-weight: 600;
   color: #1a1a1a;
   margin-bottom: 1.5rem;
+
+  @media print {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
 }
 
 .caseMetrics {
   display: flex;
   gap: 2rem;
   margin-bottom: 1.5rem;
+
+  @media print {
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
 }
 
 .metric {
@@ -236,18 +298,30 @@
   font-weight: 700;
   color: #1a1a1a;
   margin-bottom: 0.25rem;
+
+  @media print {
+    font-size: 1.5rem;
+  }
 }
 
 .metricLabel {
   font-size: 0.75rem;
   color: #6b7280;
   text-transform: uppercase;
+
+  @media print {
+    font-size: 0.7rem;
+  }
 }
 
 .caseDesc {
   font-size: 0.875rem;
   color: #6b7280;
   line-height: 1.6;
+
+  @media print {
+    font-size: 0.8rem;
+  }
 }
 
 // Описание
@@ -255,6 +329,11 @@
   font-size: 1.0625rem;
   line-height: 1.8;
   color: #374151;
+
+  @media print {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
 }
 
 // Услуги
@@ -263,6 +342,11 @@
   flex-direction: column;
   gap: 1.5rem;
   margin-bottom: 2rem;
+
+  @media print {
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
 }
 
 .service {
@@ -270,12 +354,22 @@
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   padding: 1.5rem;
+
+  @media print {
+    background: white;
+    padding: 0.75rem;
+    border: 1px solid #e5e7eb;
+  }
 }
 
 .serviceHeader {
   display: flex;
   gap: 1rem;
   margin-bottom: 1rem;
+
+  @media print {
+    margin-bottom: 0.5rem;
+  }
 }
 
 .serviceNumber {
@@ -289,6 +383,12 @@
   font-weight: 700;
   border-radius: 50%;
   flex-shrink: 0;
+
+  @media print {
+    width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+  }
 }
 
 .serviceInfo {
@@ -300,12 +400,21 @@
   font-weight: 600;
   color: #1a1a1a;
   margin-bottom: 0.5rem;
+
+  @media print {
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+  }
 }
 
 .serviceDesc {
   font-size: 0.9375rem;
   color: #6b7280;
   line-height: 1.6;
+
+  @media print {
+    font-size: 0.8rem;
+  }
 }
 
 .serviceFooter {
@@ -315,6 +424,11 @@
   padding-top: 1rem;
   border-top: 1px solid #e5e7eb;
   font-size: 0.9375rem;
+
+  @media print {
+    padding-top: 0.5rem;
+    font-size: 0.8rem;
+  }
 }
 
 .serviceQuantity {
@@ -329,6 +443,10 @@
   font-weight: 700;
   font-size: 1.125rem;
   color: #1a1a1a;
+
+  @media print {
+    font-size: 1rem;
+  }
 }
 
 // Цены
@@ -337,6 +455,13 @@
   color: white;
   padding: 2rem;
   border-radius: 8px;
+
+  @media print {
+    background: white;
+    color: #1a1a1a;
+    padding: 1rem;
+    border: 2px solid #1a1a1a;
+  }
 }
 
 .pricingRow {
@@ -345,19 +470,38 @@
   padding: 1rem 0;
   font-size: 1.125rem;
 
+  @media print {
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+  }
+
   &:not(:last-child) {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    @media print {
+      border-bottom: 1px solid #e5e7eb;
+    }
   }
 
   &.total {
     font-size: 1.5rem;
     font-weight: 700;
     padding-top: 1.5rem;
+
+    @media print {
+      font-size: 1.1rem;
+      padding-top: 0.75rem;
+      border-top: 2px solid #1a1a1a;
+    }
   }
 }
 
 .discount {
   color: #fbbf24;
+
+  @media print {
+    color: #dc2626;
+  }
 }
 
 // Условия
@@ -366,8 +510,17 @@
   line-height: 1.8;
   color: #374151;
 
+  @media print {
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
   p {
     margin-bottom: 0.75rem;
+
+    @media print {
+      margin-bottom: 0.5rem;
+    }
   }
 }
 
@@ -378,6 +531,11 @@
   border-left: 4px solid #f59e0b;
   color: #92400e;
   font-weight: 600;
+
+  @media print {
+    background: #fffbeb;
+    font-size: 0.85rem;
+  }
 }
 
 // Контакты
@@ -388,7 +546,7 @@
 
   @media print {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 0.75rem;
   }
 }
 
@@ -403,12 +561,20 @@
   color: #6b7280;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+
+  @media print {
+    font-size: 0.75rem;
+  }
 }
 
 .contactValue {
   font-size: 1.125rem;
   font-weight: 600;
   color: #1a1a1a;
+
+  @media print {
+    font-size: 0.9rem;
+  }
 }
 
 // Примечания
@@ -420,7 +586,9 @@
   line-height: 1.6;
 
   @media print {
-    padding: 1rem 2rem;
+    padding: 1rem;
+    background: white;
+    font-size: 0.8rem;
   }
 }
 
@@ -432,7 +600,10 @@
   text-align: center;
 
   @media print {
-    padding: 2rem;
+    padding: 1.5rem;
+    background: white;
+    color: #1a1a1a;
+    border-top: 2px solid #1a1a1a;
   }
 
   p {
@@ -440,20 +611,29 @@
     font-size: 1rem;
     line-height: 1.6;
 
+    @media print {
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+    }
+
     &:last-child {
       margin-bottom: 0;
     }
   }
 }
 
-// Print styles
+// Print optimization
 @media print {
-  @page {
-    margin: 0;
-    size: A4;
+  * {
+    box-shadow: none !important;
   }
 
-  .proposal {
-    background: white;
+  a {
+    text-decoration: none;
+  }
+
+  @page {
+    margin: 0;
+    size: A4 portrait;
   }
 }
