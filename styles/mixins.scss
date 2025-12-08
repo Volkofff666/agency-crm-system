@@ -46,6 +46,7 @@
   font-size: 0.95rem;
   cursor: pointer;
   transition: all $transition-fast;
+  text-decoration: none;
   
   &:disabled {
     opacity: 0.5;
@@ -61,6 +62,20 @@
   
   &:hover:not(:disabled) {
     background: $color-primary-hover;
+  }
+}
+
+// Button secondary
+@mixin button-secondary {
+  @include button-base;
+  background: white;
+  color: $color-text;
+  border: 1px solid $color-border;
+  
+  &:hover:not(:disabled) {
+    background: $color-bg-hover;
+    border-color: $color-primary;
+    color: $color-primary;
   }
 }
 

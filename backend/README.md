@@ -1,102 +1,29 @@
-# NOCTO CRM Backend
+# NOCTO CRM - Backend
 
-FastAPI бэкенд для корпоративной CRM системы NOCTO.
-
-## Технологии
-
-- **FastAPI** - современный веб-фреймворк
-- **SQLAlchemy** - ORM для работы с БД
-- **PostgreSQL** / **SQLite** - база данных
-- **Pydantic** - валидация данных
-
-## Установка
+## Запуск сервера
 
 ```bash
-cd backend
-python -m venv venv
-
-# Windows
-venv\Scripts\activate
-
-# Linux/Mac
-source venv/bin/activate
-
+# Установка зависимостей
 pip install -r requirements.txt
+
+# Запуск на порту 8080
+uvicorn main:app --reload --port 8080
 ```
 
-## Настройка
+## API будет доступен на:
+- http://localhost:8080
+- Документация Swagger: http://localhost:8080/docs
+- Документация ReDoc: http://localhost:8080/redoc
 
-### Вариант 1: SQLite (быстрый старт)
+## База данных
 
-```bash
-cp .env.example .env
-```
+Система использует SQLite. База создается автоматически при первом запуске.
 
-В `.env` оставь:
-```
-DATABASE_URL=sqlite:///./nocto_crm.db
-```
+## Структура
 
-### Вариант 2: PostgreSQL (production)
-
-1. Установи PostgreSQL
-2. Создай базу данных:
-```sql
-CREATE DATABASE nocto_crm;
-```
-
-3. В `.env` укажи:
-```
-DATABASE_URL=postgresql://user:password@localhost:5432/nocto_crm
-```
-
-## Запуск
-
-```bash
-uvicorn main:app --reload --port 8000
-```
-
-API будет доступен:
-- **Swagger UI**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
-
-## API Endpoints
-
-### Клиенты
-
-- `GET /api/clients` - список клиентов
-  - Query параметры: `search`, `status`, `skip`, `limit`
-- `GET /api/clients/{id}` - детали клиента
-- `POST /api/clients` - создать клиента
-- `PUT /api/clients/{id}` - обновить клиента
-- `DELETE /api/clients/{id}` - удалить клиента
-
-### Контакты
-
-- `POST /api/clients/{id}/contacts` - добавить контакт
-- `DELETE /api/clients/contacts/{id}` - удалить контакт
-
-### Проекты
-
-- `POST /api/clients/{id}/projects` - добавить проект
-
-## Структура БД
-
-### Таблица `clients`
-- id, name, contact_person, email, phone
-- status (lead, active, archive)
-- inn, address, website, notes
-- revenue, created_at, updated_at, last_contact
-
-### Таблица `contacts`
-- id, client_id, name, position
-- phone, email, created_at
-
-### Таблица `projects`
-- id, client_id, name, status
-- budget, created_at, updated_at
-
-## Миграции
-
-Таблицы создаются автоматически при первом запуске.
-Для production рекомендуется использовать Alembic.
+- `app/models.py` - Основные модели (Client, Project, Task, Proposal)
+- `app/models/` - Дополнительные модели (Invoice)
+- `app/api/` - API роутеры для основных сущностей
+- `app/routers/` - Дополнительные роутеры (invoices)
+- `app/schemas.py` - Pydantic схемы для валидации
+- `app/database.py` - Настройка подключения к БД
