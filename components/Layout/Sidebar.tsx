@@ -13,6 +13,7 @@ export default function Sidebar() {
     { href: '/projects', label: 'Проекты' },
     { href: '/tasks', label: 'Задачи' },
     { href: '/calendar', label: 'Календарь' },
+    { href: '/proposals', label: 'Комм. предложения' },
     { href: '/finance', label: 'Финансы' },
     { href: '/analytics', label: 'Аналитика' },
   ]
@@ -29,7 +30,7 @@ export default function Sidebar() {
           <Link
             key={item.href}
             href={item.href}
-            className={`${styles.navItem} ${pathname === item.href ? styles.active : ''}`}
+            className={`${styles.navItem} ${pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href)) ? styles.active : ''}`}
           >
             {item.label}
           </Link>

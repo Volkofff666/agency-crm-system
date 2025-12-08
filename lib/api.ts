@@ -180,3 +180,40 @@ export async function deleteTask(id: string) {
     method: 'DELETE',
   })
 }
+
+// Proposals API
+export async function getProposals(params?: {
+  skip?: number
+  limit?: number
+}) {
+  const queryParams = new URLSearchParams()
+  if (params?.skip) queryParams.append('skip', params.skip.toString())
+  if (params?.limit) queryParams.append('limit', params.limit.toString())
+
+  const query = queryParams.toString()
+  return fetchAPI(`/api/proposals${query ? `?${query}` : ''}`)
+}
+
+export async function getProposal(id: string) {
+  return fetchAPI(`/api/proposals/${id}`)
+}
+
+export async function createProposal(data: any) {
+  return fetchAPI('/api/proposals', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  })
+}
+
+export async function updateProposal(id: string, data: any) {
+  return fetchAPI(`/api/proposals/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  })
+}
+
+export async function deleteProposal(id: string) {
+  return fetchAPI(`/api/proposals/${id}`, {
+    method: 'DELETE',
+  })
+}
