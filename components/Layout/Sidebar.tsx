@@ -8,13 +8,13 @@ export default function Sidebar() {
   const pathname = usePathname()
 
   const menuItems = [
-    { href: '/', label: 'Главная', icon: '🏠' },
-    { href: '/clients', label: 'Клиенты', icon: '👥' },
-    { href: '/projects', label: 'Проекты', icon: '📁' },
-    { href: '/tasks', label: 'Задачи', icon: '✓' },
-    { href: '/calendar', label: 'Календарь', icon: '📅' },
-    { href: '/finance', label: 'Финансы', icon: '💰' },
-    { href: '/analytics', label: 'Аналитика', icon: '📊' },
+    { href: '/', label: 'Главная' },
+    { href: '/clients', label: 'Клиенты' },
+    { href: '/projects', label: 'Проекты' },
+    { href: '/tasks', label: 'Задачи' },
+    { href: '/calendar', label: 'Календарь' },
+    { href: '/finance', label: 'Финансы' },
+    { href: '/analytics', label: 'Аналитика' },
   ]
 
   return (
@@ -31,8 +31,7 @@ export default function Sidebar() {
             href={item.href}
             className={`${styles.navItem} ${pathname === item.href ? styles.active : ''}`}
           >
-            <span className={styles.navIcon}>{item.icon}</span>
-            <span className={styles.navLabel}>{item.label}</span>
+            {item.label}
           </Link>
         ))}
       </nav>
