@@ -3,20 +3,47 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 // Generic fetch wrapper
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {
   const url = `${API_BASE_URL}${endpoint}`
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
-  })
+  
+  console.log('API Request:', url, options)
+  
+  try {
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
+    })
 
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({ detail: 'Unknown error' }))
-    throw new Error(error.detail || 'API request failed')
+    console.log('API Response status:', response.status)
+
+    if (!response.ok) {
+      let errorMessage = `HTTP error! status: ${response.status}`
+      try {
+        const errorData = await response.json()
+        console.error('API Error data:', errorData)
+        errorMessage = errorData.detail || errorData.message || errorMessage
+        
+        // Если detail это массив (валидационные ошибки от Pydantic)
+        if (Array.isArray(errorData.detail)) {
+          errorMessage = errorData.detail.map((err: any) => 
+            `${err.loc.join('.')}: ${err.msg}`
+          ).join(', ')
+        }
+      } catch (e) {
+        console.error('Failed to parse error response:', e)
+      }
+      throw new Error(errorMessage)
+    }
+
+    return response.json()
+  } catch (error) {
+    console.error('API Request failed:', error)
+    if (error instanceof Error) {
+      throw error
+    }
+    throw new Error('Network error: Failed to connect to API')
   }
-
-  return response.json()
 }
 
 // Clients API
