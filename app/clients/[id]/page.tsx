@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Header from '@/components/Layout/Header'
 import Sidebar from '@/components/Layout/Sidebar'
 import ClientCard from '@/components/Clients/ClientCard'
+import ClientModal from '@/components/Clients/ClientModal'
 import { getClient } from '@/lib/api'
 import type { ClientDetail } from '@/types/clients'
 import styles from './page.module.scss'
@@ -14,6 +15,7 @@ export default function ClientDetailPage({ params }: { params: Promise<{ id: str
   const [client, setClient] = useState<ClientDetail | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
 
   useEffect(() => {
     loadClient()
@@ -30,6 +32,10 @@ export default function ClientDetailPage({ params }: { params: Promise<{ id: str
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleEditSuccess = () => {
+    loadClient()
   }
 
   if (loading) {
@@ -77,9 +83,16 @@ export default function ClientDetailPage({ params }: { params: Promise<{ id: str
             <span>{client.name}</span>
           </div>
 
-          <ClientCard client={client} />
+          <ClientCard client={client} onEdit={() => setIsEditModalOpen(true)} />
         </main>
       </div>
+
+      <ClientModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        onSuccess={handleEditSuccess}
+        client={client}
+      />
     </div>
   )
 }

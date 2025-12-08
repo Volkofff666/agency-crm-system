@@ -3,6 +3,7 @@ import styles from './ClientCard.module.scss'
 
 interface ClientCardProps {
   client: ClientDetail
+  onEdit: () => void
 }
 
 const statusLabels: Record<string, string> = {
@@ -17,17 +18,15 @@ const projectStatusLabels: Record<string, string> = {
   paused: 'Приостановлен',
 }
 
-export default function ClientCard({ client }: ClientCardProps) {
+export default function ClientCard({ client, onEdit }: ClientCardProps) {
   // Функция для открытия Telegram
   const openTelegram = (username: string) => {
-    // Если начинается с @, убираем его
     const cleanUsername = username.startsWith('@') ? username.slice(1) : username
     window.open(`https://t.me/${cleanUsername}`, '_blank')
   }
 
   // Функция для открытия WhatsApp
   const openWhatsApp = (phone: string) => {
-    // Убираем все символы кроме цифр и +
     const cleanPhone = phone.replace(/[^0-9+]/g, '')
     window.open(`https://wa.me/${cleanPhone}`, '_blank')
   }
@@ -42,7 +41,7 @@ export default function ClientCard({ client }: ClientCardProps) {
           </span>
         </div>
         <div className={styles.actions}>
-          <button className={styles.editButton}>Редактировать</button>
+          <button className={styles.editButton} onClick={onEdit}>Редактировать</button>
         </div>
       </div>
 

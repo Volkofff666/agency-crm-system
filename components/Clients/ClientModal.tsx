@@ -1,17 +1,19 @@
 'use client'
 
-import { useState, FormEvent } from 'react'
+import { useState, useEffect, FormEvent } from 'react'
 import Modal from '@/components/common/Modal'
-import { createClient } from '@/lib/api'
+import { createClient, updateClient } from '@/lib/api'
+import type { ClientDetail } from '@/types/clients'
 import styles from './ClientModal.module.scss'
 
 interface ClientModalProps {
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
+  client?: ClientDetail | null
 }
 
-export default function ClientModal({ isOpen, onClose, onSuccess }: ClientModalProps) {
+export default function ClientModal({ isOpen, onClose, onSuccess, client }: ClientModalProps) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [formData, setFormData] = useState({
@@ -28,16 +30,24 @@ export default function ClientModal({ isOpen, onClose, onSuccess }: ClientModalP
     notes: '',
   })
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
-    setError(null)
-    setLoading(true)
-
-    try {
-      await createClient(formData)
-      onSuccess()
-      onClose()
-      // Сброс формы
+  // Заполняем форму данными клиента при редактировании
+  useEffect(() => {
+    if (client) {
+      setFormData({
+        name: client.name || '',
+        contact_person: client.contact_person || '',
+        email: client.email || '',
+        phone: client.phone || '',
+        telegram: client.telegram || '',
+        whatsapp: client.whatsapp || '',
+        status: client.status || 'lead',
+        inn: client.inn || '',
+        address: client.address || '',
+        website: client.website || '',
+        notes: client.notes || '',
+      })
+    } else {
+      // Сброс формы для создания
       setFormData({
         name: '',
         contact_person: '',
@@ -51,8 +61,26 @@ export default function ClientModal({ isOpen, onClose, onSuccess }: ClientModalP
         website: '',
         notes: '',
       })
+    }
+  }, [client, isOpen])
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+    setError(null)
+    setLoading(true)
+
+    try {
+      if (client) {
+        // Редактирование
+        await updateClient(String(client.id), formData)
+      } else {
+        // Создание
+        await createClient(formData)
+      }
+      onSuccess()
+      onClose()
     } catch (err: any) {
-      setError(err.message || 'Ошибка при создании клиента')
+      setError(err.message || `Ошибка при ${client ? 'обновлении' : 'создании'} клиента`)
     } finally {
       setLoading(false)
     }
@@ -66,7 +94,7 @@ export default function ClientModal({ isOpen, onClose, onSuccess }: ClientModalP
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Добавить клиента">
+    <Modal isOpen={isOpen} onClose={onClose} title={client ? 'Редактировать клиента' : 'Добавить клиента'}>
       <form onSubmit={handleSubmit} className={styles.form}>
         {error && <div className={styles.error}>{error}</div>}
 
@@ -234,7 +262,7 @@ export default function ClientModal({ isOpen, onClose, onSuccess }: ClientModalP
             Отмена
           </button>
           <button type="submit" className={styles.submitButton} disabled={loading}>
-            {loading ? 'Создание...' : 'Создать клиента'}
+            {loading ? (client ? 'Сохранение...' : 'Создание...') : (client ? 'Сохранить' : 'Создать клиента')}
           </button>
         </div>
       </form>
