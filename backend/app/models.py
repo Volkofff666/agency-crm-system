@@ -26,6 +26,7 @@ class Client(Base):
     contacts = relationship("Contact", back_populates="client", cascade="all, delete-orphan")
     projects = relationship("Project", back_populates="client", cascade="all, delete-orphan")
     tasks = relationship("Task", back_populates="client", cascade="all, delete-orphan")
+    proposals = relationship("Proposal", back_populates="client", cascade="all, delete-orphan")
 
 class Contact(Base):
     __tablename__ = "contacts"
@@ -80,10 +81,10 @@ class Task(Base):
     priority = Column(String, default="medium")  # low, medium, high, critical
     
     # Даты
-    due_date = Column(Date, nullable=True)  # Дедлайн
+    due_date = Column(Date, nullable=True)
     completed_at = Column(DateTime, nullable=True)
     
-    # Ответственный (пока просто строка с именем)
+    # Ответственный
     assignee = Column(String, nullable=True)
     
     created_at = Column(DateTime, default=datetime.utcnow)
@@ -92,3 +93,48 @@ class Task(Base):
     # Relationships
     project = relationship("Project", back_populates="tasks")
     client = relationship("Client", back_populates="tasks")
+
+class Proposal(Base):
+    __tablename__ = "proposals"
+
+    id = Column(Integer, primary_key=True, index=True)
+    client_id = Column(Integer, ForeignKey("clients.id"), nullable=False)
+    title = Column(String, nullable=False)
+    number = Column(String, nullable=True)  # Номер КП
+    status = Column(String, default="draft")  # draft, sent, accepted, rejected
+    
+    # Сроки
+    valid_until = Column(Date, nullable=True)  # Действительно до
+    
+    # Описание
+    description = Column(Text, nullable=True)
+    terms = Column(Text, nullable=True)  # Условия работы
+    notes = Column(Text, nullable=True)  # Примечания
+    
+    # Суммы
+    subtotal = Column(Float, default=0)  # Сумма без НДС
+    discount = Column(Float, default=0)  # Скидка в процентах
+    total = Column(Float, default=0)  # Итого
+    
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    client = relationship("Client", back_populates="proposals")
+    items = relationship("ProposalItem", back_populates="proposal", cascade="all, delete-orphan")
+
+class ProposalItem(Base):
+    __tablename__ = "proposal_items"
+
+    id = Column(Integer, primary_key=True, index=True)
+    proposal_id = Column(Integer, ForeignKey("proposals.id"), nullable=False)
+    
+    name = Column(String, nullable=False)  # Название услуги
+    description = Column(Text, nullable=True)  # Описание
+    quantity = Column(Float, default=1)  # Количество
+    unit = Column(String, default="шт")  # Единица измерения
+    price = Column(Float, nullable=False)  # Цена за единицу
+    total = Column(Float, nullable=False)  # Итого (quantity * price)
+    
+    # Relationships
+    proposal = relationship("Proposal", back_populates="items")

@@ -22,6 +22,63 @@ class Contact(ContactBase):
     class Config:
         from_attributes = True
 
+# ProposalItem schemas
+class ProposalItemBase(BaseModel):
+    name: str
+    description: Optional[str] = None
+    quantity: float = 1
+    unit: str = "шт"
+    price: float
+
+class ProposalItemCreate(ProposalItemBase):
+    pass
+
+class ProposalItem(ProposalItemBase):
+    id: int
+    proposal_id: int
+    total: float
+
+    class Config:
+        from_attributes = True
+
+# Proposal schemas
+class ProposalBase(BaseModel):
+    title: str
+    number: Optional[str] = None
+    status: str = "draft"
+    valid_until: Optional[date] = None
+    description: Optional[str] = None
+    terms: Optional[str] = None
+    notes: Optional[str] = None
+    discount: float = 0
+
+class ProposalCreate(ProposalBase):
+    client_id: int
+    items: List[ProposalItemCreate]
+
+class ProposalUpdate(BaseModel):
+    title: Optional[str] = None
+    number: Optional[str] = None
+    status: Optional[str] = None
+    valid_until: Optional[date] = None
+    description: Optional[str] = None
+    terms: Optional[str] = None
+    notes: Optional[str] = None
+    discount: Optional[float] = None
+    items: Optional[List[ProposalItemCreate]] = None
+
+class Proposal(ProposalBase):
+    id: int
+    client_id: int
+    subtotal: float
+    total: float
+    created_at: datetime
+    updated_at: datetime
+    items: List[ProposalItem] = []
+
+    class Config:
+        from_attributes = True
+
 # Task schemas
 class TaskBase(BaseModel):
     title: str
