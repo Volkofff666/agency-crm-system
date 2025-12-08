@@ -30,7 +30,7 @@ export default function ClientsTable({ clients }: ClientsTableProps) {
             <th>Клиент</th>
             <th>Контактное лицо</th>
             <th>Телефон</th>
-            <th>Email</th>
+            <th>Связь</th>
             <th>Статус</th>
             <th>Проектов</th>
             <th>Последний контакт</th>
@@ -55,9 +55,11 @@ export default function ClientsTable({ clients }: ClientsTableProps) {
                 <td>{client.contact_person}</td>
                 <td>{client.phone}</td>
                 <td>
-                  <a href={`mailto:${client.email}`} className={styles.email}>
-                    {client.email}
-                  </a>
+                  <div className={styles.messengers}>
+                    {client.telegram && <span className={styles.messenger}>📱 TG</span>}
+                    {client.whatsapp && <span className={styles.messenger}>💬 WA</span>}
+                    {client.email && <span className={styles.messenger}>✉️ Email</span>}
+                  </div>
                 </td>
                 <td>
                   <span className={`${styles.status} ${styles[client.status]}`}>

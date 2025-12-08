@@ -60,13 +60,17 @@
   }
 }
 
-.email {
-  color: $color-text-secondary;
-  transition: color $transition-fast;
+.messengers {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
 
-  &:hover {
-    color: $color-text;
-  }
+.messenger {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  background: $color-bg;
+  border-radius: 2px;
 }
 
 .status {
@@ -92,10 +96,6 @@
     background: #f3f4f6;
     color: $color-text-muted;
   }
-}
-
-.revenue {
-  font-weight: 600;
 }
 
 .date {
