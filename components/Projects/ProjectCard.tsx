@@ -13,6 +13,12 @@ const statusLabels: Record<string, string> = {
   paused: 'Приостановлен',
 }
 
+const currencySymbols: Record<string, string> = {
+  RUB: '₽',
+  USD: '$',
+  EUR: '€',
+}
+
 export default function ProjectCard({ project }: ProjectCardProps) {
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr)
@@ -24,6 +30,16 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       minute: '2-digit',
     })
   }
+
+  const formatMoney = (amount: number | undefined) => {
+    if (!amount) return '—'
+    const currency = currencySymbols[project.budget_currency || 'RUB'] || '₽'
+    return `${amount.toLocaleString('ru-RU')} ${currency}`
+  }
+
+  const profit = project.our_budget && project.ad_budget 
+    ? project.our_budget - project.ad_budget 
+    : null
 
   return (
     <div className={styles.container}>
@@ -39,43 +55,72 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
       </div>
 
+      {project.description && (
+        <div className={styles.description}>
+          <p>{project.description}</p>
+        </div>
+      )}
+
       <div className={styles.grid}>
         <div className={styles.section}>
-          <h2 className={styles.sectionTitle}>Информация о проекте</h2>
-          <div className={styles.infoGrid}>
-            <div className={styles.infoItem}>
-              <div className={styles.infoLabel}>Бюджет</div>
-              <div className={styles.infoValue}>{project.budget || '—'}</div>
+          <h2 className={styles.sectionTitle}>💰 Финансы</h2>
+          <div className={styles.financeGrid}>
+            <div className={styles.financeCard}>
+              <div className={styles.financeLabel}>Наш бюджет</div>
+              <div className={styles.financeValue}>{formatMoney(project.our_budget)}</div>
+              <div className={styles.financeHint}>в месяц</div>
             </div>
+            
+            <div className={styles.financeCard}>
+              <div className={styles.financeLabel}>Рекламный бюджет</div>
+              <div className={styles.financeValue}>{formatMoney(project.ad_budget)}</div>
+              <div className={styles.financeHint}>клиента</div>
+            </div>
+            
+            {profit !== null && (
+              <div className={`${styles.financeCard} ${styles.profitCard}`}>
+                <div className={styles.financeLabel}>Прибыль</div>
+                <div className={`${styles.financeValue} ${styles.profit}`}>
+                  {formatMoney(profit)}
+                </div>
+                <div className={styles.financeHint}>агентства</div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>Информация</h2>
+          <div className={styles.infoGrid}>
             <div className={styles.infoItem}>
               <div className={styles.infoLabel}>Создан</div>
               <div className={styles.infoValue}>{formatDate(project.created_at)}</div>
             </div>
             <div className={styles.infoItem}>
-              <div className={styles.infoLabel}>Последнее обновление</div>
+              <div className={styles.infoLabel}>Обновлен</div>
               <div className={styles.infoValue}>{formatDate(project.updated_at)}</div>
             </div>
           </div>
         </div>
+      </div>
 
-        {project.client && (
-          <div className={styles.section}>
-            <h2 className={styles.sectionTitle}>Клиент</h2>
-            <div className={styles.clientCard}>
-              <Link href={`/clients/${project.client.id}`} className={styles.clientName}>
-                {project.client.name}
-              </Link>
-              <div className={styles.clientContact}>{project.client.contact_person}</div>
-              <div className={styles.clientDetails}>
-                <a href={`tel:${project.client.phone}`}>{project.client.phone}</a>
-                {project.client.email && (
-                  <a href={`mailto:${project.client.email}`}>{project.client.email}</a>
-                )}
-              </div>
+      {project.client && (
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>Клиент</h2>
+          <div className={styles.clientCard}>
+            <Link href={`/clients/${project.client.id}`} className={styles.clientName}>
+              {project.client.name}
+            </Link>
+            <div className={styles.clientContact}>{project.client.contact_person}</div>
+            <div className={styles.clientDetails}>
+              <a href={`tel:${project.client.phone}`}>{project.client.phone}</a>
+              {project.client.email && (
+                <a href={`mailto:${project.client.email}`}>{project.client.email}</a>
+              )}
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }

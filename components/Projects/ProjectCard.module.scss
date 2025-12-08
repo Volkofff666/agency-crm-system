@@ -65,10 +65,26 @@
   }
 }
 
+.description {
+  padding: 1.5rem;
+  background: $color-bg-card;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-sm;
+  margin-bottom: 2rem;
+
+  p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: $color-text-secondary;
+    margin: 0;
+  }
+}
+
 .grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 2rem;
+  margin-bottom: 2rem;
 
   @include responsive('lg') {
     grid-template-columns: 1fr;
@@ -87,6 +103,55 @@
   font-weight: 600;
   color: $color-text;
   margin-bottom: 1.5rem;
+}
+
+// Финансовые карточки
+.financeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+
+  @include responsive('md') {
+    grid-template-columns: 1fr;
+  }
+}
+
+.financeCard {
+  padding: 1.5rem;
+  background: $color-bg;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-sm;
+  text-align: center;
+
+  &.profitCard {
+    background: rgba($color-success, 0.05);
+    border-color: rgba($color-success, 0.3);
+  }
+}
+
+.financeLabel {
+  font-size: 0.75rem;
+  color: $color-text-secondary;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.financeValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $color-text;
+  margin-bottom: 0.5rem;
+
+  &.profit {
+    color: $color-success;
+  }
+}
+
+.financeHint {
+  font-size: 0.75rem;
+  color: $color-text-muted;
 }
 
 .infoGrid {
