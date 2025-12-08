@@ -1,0 +1,131 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.layout {
+  min-height: 100vh;
+  background: $color-bg;
+}
+
+.container {
+  display: flex;
+  padding-top: 64px;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 260px;
+
+  @include responsive('lg') {
+    margin-left: 0;
+  }
+}
+
+.header {
+  @include flex-between;
+  margin-bottom: 2rem;
+
+  @include responsive('md') {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: $color-text;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  font-size: 0.9375rem;
+  color: $color-text-secondary;
+}
+
+.addButton {
+  @include button-base;
+  background: $color-text;
+  color: white;
+
+  &:hover:not(:disabled) {
+    background: lighten($color-text, 10%);
+  }
+}
+
+.filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  @include responsive('md') {
+    flex-direction: column;
+  }
+}
+
+.searchInput {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-sm;
+  font-size: 0.9375rem;
+  transition: all $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $color-text;
+  }
+}
+
+.filterSelect {
+  padding: 0.75rem 1rem;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-sm;
+  background: $color-bg-card;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $color-text;
+  }
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+
+  @include responsive('lg') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include responsive('sm') {
+    grid-template-columns: 1fr;
+  }
+}
+
+.stat {
+  background: $color-bg-card;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-sm;
+  padding: 1.5rem;
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  color: $color-text-secondary;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.statValue {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: $color-text;
+}

@@ -1,0 +1,69 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.layout {
+  min-height: 100vh;
+  background: $color-bg;
+}
+
+.container {
+  display: flex;
+  padding-top: 64px;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 260px;
+
+  @include responsive('lg') {
+    margin-left: 0;
+  }
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.875rem;
+
+  a {
+    color: $color-text-secondary;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $color-text;
+    }
+  }
+
+  span {
+    color: $color-text-muted;
+
+    &:last-child {
+      color: $color-text;
+      font-weight: 600;
+    }
+  }
+}
+
+.notFound {
+  text-align: center;
+  padding: 5rem 2rem;
+
+  h1 {
+    font-size: 2rem;
+    color: $color-text;
+    margin-bottom: 2rem;
+  }
+}
+
+.backButton {
+  @include button-base;
+  background: $color-text;
+  color: white;
+
+  &:hover {
+    background: lighten($color-text, 10%);
+  }
+}
