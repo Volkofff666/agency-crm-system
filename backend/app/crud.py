@@ -2,8 +2,8 @@ from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import datetime
 
-# Явный импорт из файла models.py (не из папки models/)
-from app.models import Client, Contact
+# Импорт из переименованного файла
+from app.base_models import Client, Contact
 from app import schemas
 
 # Client CRUD
