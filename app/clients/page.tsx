@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Header from '@/components/Layout/Header'
 import Sidebar from '@/components/Layout/Sidebar'
 import ClientsTable from '@/components/Clients/ClientsTable'
+import ClientModal from '@/components/Clients/ClientModal'
 import { getClients } from '@/lib/api'
 import type { Client } from '@/types/clients'
 import styles from './page.module.scss'
@@ -13,6 +14,7 @@ export default function ClientsPage() {
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     loadClients()
@@ -33,6 +35,10 @@ export default function ClientsPage() {
     }
   }
 
+  const handleClientCreated = () => {
+    loadClients()
+  }
+
   const activeClients = clients.filter((c) => c.status === 'active').length
   const leadClients = clients.filter((c) => c.status === 'lead').length
 
@@ -47,7 +53,9 @@ export default function ClientsPage() {
               <h1 className={styles.title}>Клиенты</h1>
               <p className={styles.subtitle}>База клиентов и контактов агентства</p>
             </div>
-            <button className={styles.addButton}>Добавить клиента</button>
+            <button className={styles.addButton} onClick={() => setIsModalOpen(true)}>
+              Добавить клиента
+            </button>
           </div>
 
           <div className={styles.filters}>
@@ -92,6 +100,12 @@ export default function ClientsPage() {
           )}
         </main>
       </div>
+
+      <ClientModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={handleClientCreated}
+      />
     </div>
   )
 }
