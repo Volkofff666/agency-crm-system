@@ -24,7 +24,7 @@ class Contact(ContactBase):
 class ProjectBase(BaseModel):
     name: str
     status: str = "active"
-    budget: float = 0.0
+    budget: Optional[str] = None
 
 class ProjectCreate(ProjectBase):
     pass
@@ -66,7 +66,6 @@ class ClientUpdate(BaseModel):
 
 class Client(ClientBase):
     id: int
-    revenue: float
     created_at: datetime
     updated_at: datetime
     last_contact: datetime

@@ -1,34 +1,40 @@
 export interface Client {
-  id: string
+  id: string | number
   name: string
-  contactPerson: string
+  contact_person: string
   email: string
   phone: string
   status: 'lead' | 'active' | 'archive'
-  projectsCount: number
-  revenue: number
-  lastContact: string
+  projectsCount?: number
+  last_contact: string
+  created_at?: string
+  updated_at?: string
 }
 
 export interface ClientDetail extends Client {
-  inn: string
-  address: string
-  website: string
+  inn?: string
+  address?: string
+  website?: string
   projects: Project[]
   contacts: Contact[]
-  notes: string
+  notes?: string
+  projects_count?: number
 }
 
 export interface Project {
-  id: string
+  id: string | number
   name: string
   status: 'active' | 'completed' | 'paused'
-  budget: number
+  budget?: string
+  created_at?: string
+  updated_at?: string
 }
 
 export interface Contact {
+  id?: string | number
   name: string
-  position: string
+  position?: string
   phone: string
   email: string
+  created_at?: string
 }

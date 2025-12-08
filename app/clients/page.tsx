@@ -35,7 +35,6 @@ export default function ClientsPage() {
 
   const activeClients = clients.filter((c) => c.status === 'active').length
   const leadClients = clients.filter((c) => c.status === 'lead').length
-  const totalRevenue = clients.reduce((acc, c) => acc + (c.revenue || 0), 0)
 
   return (
     <div className={styles.layout}>
@@ -83,12 +82,6 @@ export default function ClientsPage() {
             <div className={styles.stat}>
               <div className={styles.statLabel}>Лидов</div>
               <div className={styles.statValue}>{leadClients}</div>
-            </div>
-            <div className={styles.stat}>
-              <div className={styles.statLabel}>Общая выручка</div>
-              <div className={styles.statValue}>
-                {(totalRevenue / 1000).toFixed(0)}k ₽
-              </div>
             </div>
           </div>
 

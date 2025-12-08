@@ -13,14 +13,6 @@ const statusLabels: Record<string, string> = {
 }
 
 export default function ClientsTable({ clients }: ClientsTableProps) {
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('ru-RU', {
-      style: 'currency',
-      currency: 'RUB',
-      maximumFractionDigits: 0,
-    }).format(value)
-  }
-
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr)
     return date.toLocaleDateString('ru-RU', {
@@ -41,7 +33,6 @@ export default function ClientsTable({ clients }: ClientsTableProps) {
             <th>Email</th>
             <th>Статус</th>
             <th>Проектов</th>
-            <th>Выручка</th>
             <th>Последний контакт</th>
             <th>Действия</th>
           </tr>
@@ -49,7 +40,7 @@ export default function ClientsTable({ clients }: ClientsTableProps) {
         <tbody>
           {clients.length === 0 ? (
             <tr>
-              <td colSpan={9} className={styles.empty}>
+              <td colSpan={8} className={styles.empty}>
                 Клиенты не найдены
               </td>
             </tr>
@@ -61,7 +52,7 @@ export default function ClientsTable({ clients }: ClientsTableProps) {
                     {client.name}
                   </Link>
                 </td>
-                <td>{client.contactPerson}</td>
+                <td>{client.contact_person}</td>
                 <td>{client.phone}</td>
                 <td>
                   <a href={`mailto:${client.email}`} className={styles.email}>
@@ -73,9 +64,8 @@ export default function ClientsTable({ clients }: ClientsTableProps) {
                     {statusLabels[client.status]}
                   </span>
                 </td>
-                <td>{client.projectsCount}</td>
-                <td className={styles.revenue}>{formatCurrency(client.revenue)}</td>
-                <td className={styles.date}>{formatDate(client.lastContact)}</td>
+                <td>{client.projectsCount || 0}</td>
+                <td className={styles.date}>{formatDate(client.last_contact)}</td>
                 <td>
                   <Link href={`/clients/${client.id}`} className={styles.viewButton}>
                     Открыть

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Text
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from app.database import Base
@@ -16,7 +16,6 @@ class Client(Base):
     address = Column(String, nullable=True)
     website = Column(String, nullable=True)
     notes = Column(Text, nullable=True)
-    revenue = Column(Float, default=0.0)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     last_contact = Column(DateTime, default=datetime.utcnow)
@@ -46,7 +45,7 @@ class Project(Base):
     client_id = Column(Integer, ForeignKey("clients.id"), nullable=False)
     name = Column(String, nullable=False)
     status = Column(String, default="active")  # active, completed, paused
-    budget = Column(Float, default=0.0)
+    budget = Column(String, nullable=True)  # Строка для гибкости (можем хранить "от 100к" и т.д.)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
