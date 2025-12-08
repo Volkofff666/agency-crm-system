@@ -24,7 +24,6 @@ async function fetchAPI(endpoint: string, options: RequestInit = {}) {
         console.error('API Error data:', errorData)
         errorMessage = errorData.detail || errorData.message || errorMessage
         
-        // Если detail это массив (валидационные ошибки от Pydantic)
         if (Array.isArray(errorData.detail)) {
           errorMessage = errorData.detail.map((err: any) => 
             `${err.loc.join('.')}: ${err.msg}`
@@ -102,9 +101,39 @@ export async function deleteContact(contactId: string) {
 }
 
 // Projects API
+export async function getProjects(params?: {
+  status?: string
+  skip?: number
+  limit?: number
+}) {
+  const queryParams = new URLSearchParams()
+  if (params?.status) queryParams.append('status', params.status)
+  if (params?.skip) queryParams.append('skip', params.skip.toString())
+  if (params?.limit) queryParams.append('limit', params.limit.toString())
+
+  const query = queryParams.toString()
+  return fetchAPI(`/api/projects${query ? `?${query}` : ''}`)
+}
+
+export async function getProject(id: string) {
+  return fetchAPI(`/api/projects/${id}`)
+}
+
 export async function addProject(clientId: string, data: any) {
   return fetchAPI(`/api/clients/${clientId}/projects`, {
     method: 'POST',
     body: JSON.stringify(data),
+  })
+}
+
+export async function updateProjectStatus(id: string, status: string) {
+  return fetchAPI(`/api/projects/${id}/status?status=${status}`, {
+    method: 'PUT',
+  })
+}
+
+export async function deleteProject(id: string) {
+  return fetchAPI(`/api/projects/${id}`, {
+    method: 'DELETE',
   })
 }

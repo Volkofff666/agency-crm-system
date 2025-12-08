@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base
-from app.api import clients
+from app.api import clients, projects
 
 # Создание таблиц в БД
 Base.metadata.create_all(bind=engine)
@@ -23,6 +23,7 @@ app.add_middleware(
 
 # Подключение роутеров
 app.include_router(clients.router, prefix="/api/clients", tags=["clients"])
+app.include_router(projects.router, prefix="/api/projects", tags=["projects"])
 
 @app.get("/")
 def root():
