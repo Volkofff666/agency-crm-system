@@ -1,0 +1,61 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.layout {
+  min-height: 100vh;
+  background: $color-bg;
+}
+
+.container {
+  display: flex;
+  padding-top: 64px;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 260px;
+
+  @include responsive('lg') {
+    margin-left: 0;
+  }
+
+  @media print {
+    margin-left: 0;
+    padding: 0;
+  }
+}
+
+.header {
+  @include flex-between;
+  margin-bottom: 2rem;
+
+  @media print {
+    display: none;
+  }
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: $color-text;
+}
+
+.printButton {
+  @include button-base;
+  padding: 0.75rem 1.5rem;
+  background: $color-text;
+  color: white;
+
+  &:hover {
+    background: lighten($color-text, 10%);
+  }
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 3rem;
+  color: $color-text-secondary;
+  font-size: 0.9375rem;
+}
