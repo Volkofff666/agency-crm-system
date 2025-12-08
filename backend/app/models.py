@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text, Float
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from app.database import Base
@@ -9,10 +9,10 @@ class Client(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False, index=True)
     contact_person = Column(String, nullable=False)
-    email = Column(String, nullable=True)  # Email теперь необязателен
+    email = Column(String, nullable=True)
     phone = Column(String, nullable=False)
-    telegram = Column(String, nullable=True)  # Username в Telegram (@username или ID)
-    whatsapp = Column(String, nullable=True)  # Номер WhatsApp
+    telegram = Column(String, nullable=True)
+    whatsapp = Column(String, nullable=True)
     status = Column(String, default="lead")  # lead, active, archive
     inn = Column(String, nullable=True)
     address = Column(String, nullable=True)
@@ -49,7 +49,13 @@ class Project(Base):
     client_id = Column(Integer, ForeignKey("clients.id"), nullable=False)
     name = Column(String, nullable=False)
     status = Column(String, default="active")  # active, completed, paused
-    budget = Column(String, nullable=True)  # Строка для гибкости (можем хранить "от 100к" и т.д.)
+    
+    # Финансы
+    our_budget = Column(Float, nullable=True)  # Сколько клиент платит нам в месяц
+    ad_budget = Column(Float, nullable=True)   # Рекламный бюджет клиента в месяц
+    budget_currency = Column(String, default="RUB")  # Валюта
+    
+    description = Column(Text, nullable=True)  # Описание проекта
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

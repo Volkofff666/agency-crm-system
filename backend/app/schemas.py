@@ -26,7 +26,10 @@ class Contact(ContactBase):
 class ProjectBase(BaseModel):
     name: str
     status: str = "active"
-    budget: Optional[str] = None
+    our_budget: Optional[float] = None
+    ad_budget: Optional[float] = None
+    budget_currency: str = "RUB"
+    description: Optional[str] = None
 
 class ProjectCreate(ProjectBase):
     pass

@@ -2,7 +2,10 @@ export interface Project {
   id: string | number
   name: string
   status: 'active' | 'completed' | 'paused'
-  budget?: string
+  our_budget?: number
+  ad_budget?: number
+  budget_currency?: string
+  description?: string
   client_id: string | number
   client_name?: string
   created_at: string
