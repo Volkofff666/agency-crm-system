@@ -621,19 +621,3 @@
     }
   }
 }
-
-// Print optimization
-@media print {
-  * {
-    box-shadow: none !important;
-  }
-
-  a {
-    text-decoration: none;
-  }
-
-  @page {
-    margin: 0;
-    size: A4 portrait;
-  }
-}
