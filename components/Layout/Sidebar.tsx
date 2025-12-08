@@ -4,35 +4,37 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import styles from './Sidebar.module.scss'
 
-const navigation = [
-  { name: 'Главная', href: '/dashboard' },
-  { name: 'Клиенты', href: '/clients' },
-  { name: 'Проекты', href: '/projects' },
-  { name: 'Финансы', href: '/finance' },
-  { name: 'Сотрудники', href: '/employees' },
-  { name: 'Документы', href: '/documents' },
-  { name: 'Аналитика', href: '/analytics' },
-  { name: 'Настройки', href: '/settings' },
-]
-
 export default function Sidebar() {
   const pathname = usePathname()
 
+  const menuItems = [
+    { href: '/', label: 'Главная', icon: '🏠' },
+    { href: '/clients', label: 'Клиенты', icon: '👥' },
+    { href: '/projects', label: 'Проекты', icon: '📁' },
+    { href: '/tasks', label: 'Задачи', icon: '✓' },
+    { href: '/calendar', label: 'Календарь', icon: '📅' },
+    { href: '/finance', label: 'Финансы', icon: '💰' },
+    { href: '/analytics', label: 'Аналитика', icon: '📊' },
+  ]
+
   return (
     <aside className={styles.sidebar}>
+      <div className={styles.brand}>
+        <span className={styles.brandIcon}>N</span>
+        <span className={styles.brandName}>NOCTO CRM</span>
+      </div>
+
       <nav className={styles.nav}>
-        {navigation.map((item) => {
-          const isActive = pathname === item.href
-          return (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={`${styles.navItem} ${isActive ? styles.active : ''}`}
-            >
-              {item.name}
-            </Link>
-          )
-        })}
+        {menuItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={`${styles.navItem} ${pathname === item.href ? styles.active : ''}`}
+          >
+            <span className={styles.navIcon}>{item.icon}</span>
+            <span className={styles.navLabel}>{item.label}</span>
+          </Link>
+        ))}
       </nav>
     </aside>
   )
