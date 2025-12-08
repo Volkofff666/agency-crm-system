@@ -27,6 +27,7 @@ class Client(Base):
     projects = relationship("Project", back_populates="client", cascade="all, delete-orphan")
     tasks = relationship("Task", back_populates="client", cascade="all, delete-orphan")
     proposals = relationship("Proposal", back_populates="client", cascade="all, delete-orphan")
+    invoices = relationship("Invoice", back_populates="client", cascade="all, delete-orphan")
 
 class Contact(Base):
     __tablename__ = "contacts"
@@ -64,6 +65,7 @@ class Project(Base):
     # Relationships
     client = relationship("Client", back_populates="projects")
     tasks = relationship("Task", back_populates="project", cascade="all, delete-orphan")
+    invoices = relationship("Invoice", back_populates="project", cascade="all, delete-orphan")
 
 class Task(Base):
     __tablename__ = "tasks"
