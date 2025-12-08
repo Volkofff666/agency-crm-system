@@ -1,81 +1,41 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from '@/components/Layout/Header'
 import Sidebar from '@/components/Layout/Sidebar'
 import ClientsTable from '@/components/Clients/ClientsTable'
+import { getClients } from '@/lib/api'
+import type { Client } from '@/types/clients'
 import styles from './page.module.scss'
 
-// Моковые данные клиентов
-const MOCK_CLIENTS = [
-  {
-    id: '1',
-    name: 'ООО "Торговый Дом Альфа"',
-    contactPerson: 'Иванов Иван Иванович',
-    email: 'ivanov@alpha-td.ru',
-    phone: '+7 (495) 123-45-67',
-    status: 'active',
-    projectsCount: 3,
-    revenue: 450000,
-    lastContact: '2025-12-05',
-  },
-  {
-    id: '2',
-    name: 'ИП Петров Петр Петрович',
-    contactPerson: 'Петров Петр Петрович',
-    email: 'petrov@example.com',
-    phone: '+7 (903) 234-56-78',
-    status: 'active',
-    projectsCount: 1,
-    revenue: 120000,
-    lastContact: '2025-12-07',
-  },
-  {
-    id: '3',
-    name: 'ООО "БизнесСтрой"',
-    contactPerson: 'Сидорова Анна Владимировна',
-    email: 'sidorova@biznesstroy.ru',
-    phone: '+7 (812) 345-67-89',
-    status: 'lead',
-    projectsCount: 0,
-    revenue: 0,
-    lastContact: '2025-12-03',
-  },
-  {
-    id: '4',
-    name: 'ООО "ТехноПро"',
-    contactPerson: 'Козлов Сергей Александрович',
-    email: 'kozlov@technopro.com',
-    phone: '+7 (495) 456-78-90',
-    status: 'active',
-    projectsCount: 5,
-    revenue: 890000,
-    lastContact: '2025-12-08',
-  },
-  {
-    id: '5',
-    name: 'ИП Смирнов',
-    contactPerson: 'Смирнов Дмитрий Игоревич',
-    email: 'smirnov@mail.ru',
-    phone: '+7 (926) 567-89-01',
-    status: 'archive',
-    projectsCount: 2,
-    revenue: 180000,
-    lastContact: '2025-11-15',
-  },
-]
-
 export default function ClientsPage() {
+  const [clients, setClients] = useState<Client[]>([])
+  const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
 
-  const filteredClients = MOCK_CLIENTS.filter((client) => {
-    const matchesSearch =
-      client.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      client.contactPerson.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesStatus = statusFilter === 'all' || client.status === statusFilter
-    return matchesSearch && matchesStatus
-  })
+  useEffect(() => {
+    loadClients()
+  }, [searchQuery, statusFilter])
+
+  const loadClients = async () => {
+    try {
+      setLoading(true)
+      const data = await getClients({
+        search: searchQuery || undefined,
+        status: statusFilter !== 'all' ? statusFilter : undefined,
+      })
+      setClients(data)
+    } catch (error) {
+      console.error('Ошибка загрузки клиентов:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const activeClients = clients.filter((c) => c.status === 'active').length
+  const leadClients = clients.filter((c) => c.status === 'lead').length
+  const totalRevenue = clients.reduce((acc, c) => acc + (c.revenue || 0), 0)
 
   return (
     <div className={styles.layout}>
@@ -114,29 +74,29 @@ export default function ClientsPage() {
           <div className={styles.stats}>
             <div className={styles.stat}>
               <div className={styles.statLabel}>Всего клиентов</div>
-              <div className={styles.statValue}>{MOCK_CLIENTS.length}</div>
+              <div className={styles.statValue}>{clients.length}</div>
             </div>
             <div className={styles.stat}>
               <div className={styles.statLabel}>Активных</div>
-              <div className={styles.statValue}>
-                {MOCK_CLIENTS.filter((c) => c.status === 'active').length}
-              </div>
+              <div className={styles.statValue}>{activeClients}</div>
             </div>
             <div className={styles.stat}>
               <div className={styles.statLabel}>Лидов</div>
-              <div className={styles.statValue}>
-                {MOCK_CLIENTS.filter((c) => c.status === 'lead').length}
-              </div>
+              <div className={styles.statValue}>{leadClients}</div>
             </div>
             <div className={styles.stat}>
               <div className={styles.statLabel}>Общая выручка</div>
               <div className={styles.statValue}>
-                {(MOCK_CLIENTS.reduce((acc, c) => acc + c.revenue, 0) / 1000).toFixed(0)}k ₽
+                {(totalRevenue / 1000).toFixed(0)}k ₽
               </div>
             </div>
           </div>
 
-          <ClientsTable clients={filteredClients} />
+          {loading ? (
+            <div className={styles.loading}>Загрузка...</div>
+          ) : (
+            <ClientsTable clients={clients} />
+          )}
         </main>
       </div>
     </div>
