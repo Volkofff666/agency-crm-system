@@ -1,0 +1,148 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.main {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #f3f4f6;
+  color: $color-text-secondary;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: $color-text;
+  margin-bottom: 1.5rem;
+  
+  @include responsive('md') {
+    font-size: 2.5rem;
+  }
+  
+  @include responsive('sm') {
+    font-size: 2rem;
+  }
+}
+
+.description {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: $color-text-secondary;
+  margin-bottom: 2.5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  @include responsive('md') {
+    font-size: 1rem;
+  }
+}
+
+.actions {
+  @include flex-center;
+  gap: 1rem;
+}
+
+.buttonPrimary {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2.5rem;
+  background: $color-text;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: $border-radius-sm;
+  transition: all $transition-base;
+  border: 2px solid $color-text;
+  
+  &:hover {
+    background: transparent;
+    color: $color-text;
+  }
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 3rem 0;
+  border-top: 1px solid $color-border;
+  border-bottom: 1px solid $color-border;
+  margin-bottom: 4rem;
+  
+  @include responsive('md') {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.statItem {
+  text-align: center;
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $color-text;
+  margin-bottom: 0.5rem;
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  color: $color-text-secondary;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  
+  @include responsive('lg') {
+    grid-template-columns: 1fr;
+  }
+}
+
+.feature {
+  padding: 2rem;
+  background: $color-bg-card;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-sm;
+  
+  h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: $color-text;
+    margin-bottom: 0.75rem;
+  }
+  
+  p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: $color-text-secondary;
+  }
+}
