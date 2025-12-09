@@ -2,15 +2,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base
 
-# Импортируем старые модели из base_models.py
+# Импортируем модели для создания таблиц
 from app.base_models import Client, Contact, Project, Task, Proposal, ProposalItem
-
-# Импортируем новые модели из папки models/
 from app.models.invoice import Invoice, InvoiceItem
 
 # Импортируем роутеры
-from app.api import clients, projects, tasks, proposals
-from app.routers import invoices
+from app.routers import clients, projects, tasks, proposals, invoices
 
 # Создание таблиц в БД
 Base.metadata.create_all(bind=engine)
@@ -18,7 +15,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(
     title="NOCTO CRM API",
     description="API для корпоративной CRM системы NOCTO",
-    version="0.2.0"
+    version="0.3.0"
 )
 
 # CORS для локальной разработки
@@ -39,7 +36,7 @@ app.include_router(invoices.router, tags=["invoices"])
 
 @app.get("/")
 def root():
-    return {"message": "NOCTO CRM API is running", "version": "0.2.0"}
+    return {"message": "NOCTO CRM API is running", "version": "0.3.0"}
 
 @app.get("/health")
 def health_check():
