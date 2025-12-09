@@ -16,43 +16,41 @@ def create_admin():
     # Проверяем, есть ли уже админ
     existing_admin = db.query(User).filter(User.role == "admin").first()
     if existing_admin:
-        print(f"⚠️  Админ уже существует: {existing_admin.username}")
-        print(f"ℹ️  Email: {existing_admin.email}")
+        print(f"WARNING: Админ уже существует: {existing_admin.username}")
+        print(f"INFO: Email: {existing_admin.email}")
         
-        response = input("
-Создать еще одного админа? (y/n): ")
+        response = input("\nСоздать еще одного админа? (y/n): ")
         if response.lower() != 'y':
-            print("❌ Отменено")
+            print("CANCELLED: Отменено")
             return
     
-    print("
-=== Создание администратора ===")
+    print("\n=== Создание администратора ===")
     
     # Ввод данных
-    email = input("✉️  Email: ").strip()
+    email = input("Email: ").strip()
     if not email:
-        print("❌ Ошибка: Email не может быть пустым")
+        print("ERROR: Email не может быть пустым")
         return
     
-    username = input("👤 Username: ").strip()
+    username = input("Username: ").strip()
     if not username:
-        print("❌ Ошибка: Username не может быть пустым")
+        print("ERROR: Username не может быть пустым")
         return
     
-    full_name = input("📛 Полное имя: ").strip()
+    full_name = input("Полное имя: ").strip()
     if not full_name:
-        print("❌ Ошибка: Полное имя не может быть пустым")
+        print("ERROR: Полное имя не может быть пустым")
         return
     
     import getpass
-    password = getpass.getpass("🔒 Пароль: ")
+    password = getpass.getpass("Пароль: ")
     if not password or len(password) < 6:
-        print("❌ Ошибка: Пароль должен быть минимум 6 символов")
+        print("ERROR: Пароль должен быть минимум 6 символов")
         return
     
-    password_confirm = getpass.getpass("🔒 Повторите пароль: ")
+    password_confirm = getpass.getpass("Повторите пароль: ")
     if password != password_confirm:
-        print("❌ Ошибка: Пароли не совпадают")
+        print("ERROR: Пароли не совпадают")
         return
     
     # Проверяем уникальность
@@ -61,7 +59,7 @@ def create_admin():
     ).first()
     
     if existing:
-        print(f"❌ Ошибка: Пользователь с таким email или username уже существует")
+        print("ERROR: Пользователь с таким email или username уже существует")
         return
     
     # Создаем админа
@@ -78,13 +76,13 @@ def create_admin():
     db.commit()
     db.refresh(admin)
     
-    print("\n✅ Администратор успешно создан!")
-    print(f"ℹ️  ID: {admin.id}")
-    print(f"✉️  Email: {admin.email}")
-    print(f"👤 Username: {admin.username}")
-    print(f"📛 Имя: {admin.full_name}")
-    print(f"🔑 Роль: {admin.role}")
-    print("\n✨ Теперь вы можете войти в систему!")
+    print("\nSUCCESS: Администратор успешно создан!")
+    print(f"INFO: ID: {admin.id}")
+    print(f"INFO: Email: {admin.email}")
+    print(f"INFO: Username: {admin.username}")
+    print(f"INFO: Имя: {admin.full_name}")
+    print(f"INFO: Роль: {admin.role}")
+    print("\nINFO: Теперь вы можете войти в систему!")
     
     db.close()
 
@@ -92,8 +90,8 @@ if __name__ == "__main__":
     try:
         create_admin()
     except KeyboardInterrupt:
-        print("\n\n❌ Отменено пользователем")
+        print("\n\nCANCELLED: Отменено пользователем")
         sys.exit(0)
     except Exception as e:
-        print(f"\n❌ Ошибка: {e}")
+        print(f"\nERROR: {e}")
         sys.exit(1)
