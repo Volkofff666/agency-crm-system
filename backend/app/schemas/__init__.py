@@ -39,6 +39,16 @@ from app.schemas.invoice import (
     InvoiceItemCreate,
 )
 
+# User schemas
+from app.schemas.user import (
+    User,
+    UserCreate,
+    UserUpdate,
+    Token,
+    TokenData,
+    LoginRequest,
+)
+
 __all__ = [
     # Client
     'Client',
@@ -66,4 +76,11 @@ __all__ = [
     'InvoiceUpdate',
     'InvoiceItem',
     'InvoiceItemCreate',
+    # User
+    'User',
+    'UserCreate',
+    'UserUpdate',
+    'Token',
+    'TokenData',
+    'LoginRequest',
 ]
