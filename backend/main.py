@@ -2,9 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base
 
-# Импортируем модели для создания таблиц
-from app.base_models import Client, Contact, Project, Task, Proposal, ProposalItem
-from app.models.invoice import Invoice, InvoiceItem
+# Импортируем все модели для создания таблиц
+from app.models import (
+    Client, Contact, Project, Task, 
+    Proposal, ProposalItem, Invoice, InvoiceItem
+)
 
 # Импортируем роутеры
 from app.routers import clients, projects, tasks, proposals, invoices
