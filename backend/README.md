@@ -7,37 +7,8 @@ Backend API для CRM системы рекламного агентства NO
 - **FastAPI** - современный веб-фреймворк
 - **SQLAlchemy** - ORM для работы с БД
 - **Pydantic** - валидация данных
+- **JWT** - аутентификация
 - **SQLite/PostgreSQL** - база данных
-
-## Структура
-
-```
-backend/
-├── app/
-│   ├── models/          # Модели SQLAlchemy
-│   │   ├── client.py
-│   │   ├── project.py
-│   │   ├── task.py
-│   │   ├── proposal.py
-│   │   └── invoice.py
-│   ├── schemas/         # Pydantic схемы
-│   │   ├── client.py
-│   │   ├── project.py
-│   │   ├── task.py
-│   │   ├── proposal.py
-│   │   └── invoice.py
-│   ├── routers/         # API роутеры
-│   │   ├── clients.py
-│   │   ├── projects.py
-│   │   ├── tasks.py
-│   │   ├── proposals.py
-│   │   └── invoices.py
-│   ├── crud.py          # CRUD операции
-│   ├── database.py      # Настройка БД
-│   └── main.py          # Точка входа
-├── requirements.txt     # Зависимости
-└── .env.example         # Пример конфигурации
-```
 
 ## Установка
 
@@ -54,8 +25,6 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-Редактируйте `.env` при необходимости.
-
 ### 3. Запустите сервер
 
 ```bash
@@ -64,12 +33,93 @@ uvicorn app.main:app --reload
 
 Сервер запустится на: `http://127.0.0.1:8000`
 
-### 4. Откройте документацию API
+### 4. Создайте первого администратора
+
+Запустите скрипт:
+
+```bash
+python create_admin.py
+```
+
+Введите данные админа:
+- Email
+- Username
+- Полное имя
+- Пароль (мин. 6 символов)
+
+### 5. Откройте документацию API
 
 - Swagger UI: `http://127.0.0.1:8000/docs`
 - ReDoc: `http://127.0.0.1:8000/redoc`
 
+## Аутентификация
+
+### Роли пользователей:
+
+- **admin** - полный доступ, может создавать пользователей
+- **manager** - менеджер, работа с клиентами и проектами
+- **employee** - сотрудник, работа с задачами
+
+### Вход в систему:
+
+```bash
+curl -X POST "http://127.0.0.1:8000/api/auth/login" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "admin",
+    "password": "your_password"
+  }'
+```
+
+Ответ:
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1...",
+  "token_type": "bearer"
+}
+```
+
+### Использование токена:
+
+Добавьте заголовок к каждому запросу:
+
+```
+Authorization: Bearer YOUR_ACCESS_TOKEN
+```
+
+Пример:
+```bash
+curl -X GET "http://127.0.0.1:8000/api/auth/me" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1..."
+```
+
+### Создание нового пользователя (только admin):
+
+```bash
+curl -X POST "http://127.0.0.1:8000/api/auth/register" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "manager@nocto.ru",
+    "username": "manager1",
+    "full_name": "Иван Иванов",
+    "password": "secure_password",
+    "role": "manager"
+  }'
+```
+
 ## API Эндпоинты
+
+### Аутентификация
+- `POST /api/auth/login` - Вход
+- `POST /api/auth/register` - Регистрация (только admin)
+- `GET /api/auth/me` - Текущий пользователь
+
+### Пользователи (только admin)
+- `GET /api/users` - Список пользователей
+- `GET /api/users/{id}` - Получить пользователя
+- `PUT /api/users/{id}` - Обновить пользователя
+- `DELETE /api/users/{id}` - Удалить пользователя
 
 ### Клиенты
 - `GET /api/clients` - Список клиентов
@@ -127,16 +177,4 @@ uvicorn app.main:app --reload
 ### Проверка кода
 ```bash
 pylint app/
-```
-
-## Тестирование
-
-Проверьте API через Swagger UI или используйте curl:
-
-```bash
-# Health check
-curl http://localhost:8000/health
-
-# Получить всех клиентов
-curl http://localhost:8000/api/clients
 ```
