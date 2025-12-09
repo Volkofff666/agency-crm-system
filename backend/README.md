@@ -33,8 +33,8 @@ backend/
 │   │   ├── proposals.py
 │   │   └── invoices.py
 │   ├── crud.py          # CRUD операции
-│   └── database.py      # Настройка БД
-├── main.py              # Точка входа
+│   ├── database.py      # Настройка БД
+│   └── main.py          # Точка входа
 ├── requirements.txt     # Зависимости
 └── .env.example         # Пример конфигурации
 ```
